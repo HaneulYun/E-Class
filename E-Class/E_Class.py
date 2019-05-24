@@ -1,5 +1,6 @@
 
 from tkinter import *
+from tkinter import ttk
 #from tkinter import ttk, font
 #import tkinter.messagebox
 # import urllib
@@ -80,12 +81,18 @@ class App:
         self.initBody()
 
     def initBanner(self):
-        self.banner = Frame(self.tk, bg='red')
+        self.banner = Frame(self.tk)
         self.banner.place(x=0, y=0, width=1080, height=100)
+        self.logo=PhotoImage(file="e-class_logo.png")
+        self.logo_label=Label(self.tk,image=self.logo)
+        self.logo_label.place(x=0,y=0)
 
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg='green')
         self.searchingArea.place(x=0, y=100, width=450, height=50)
+        SearchListBox = StringVar()
+        SearchListBox = ttk.Combobox(textvariable=SearchListBox, width=9)
+
         
     def initClassListArea(self):
         self.classListArea = Frame(self.tk, bg='blue')
