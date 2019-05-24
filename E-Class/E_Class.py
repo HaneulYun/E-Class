@@ -2,16 +2,25 @@
 from tkinter import *
 #from tkinter import ttk, font
 #import tkinter.messagebox
-# import urllib
-# import http.client
-# 
-# conn = http.client.HTTPConnection("kocw.net")
-# conn.request("GET",
-#              "home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201")
-# 
-# req = conn.getresponse()
-# print(req.status, req.reason)
-# print(req.read().decode('utf-8'))
+import urllib
+import http.client
+
+conn = http.client.HTTPConnection("kocw.net")
+conn.request("GET",
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201"
+             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
+             )
+
+req = conn.getresponse()
+print(req.status, req.reason)
+print(req.read().decode('utf-8'))
+
+
+conn = http.client.HTTPConnection("apis.data.go.kr")
+conn.request("GET","/B551182/hospInfoService/getHospBasisList?serviceKey=sea100UMmw23Xycs33F1EQnumONR%2F9ElxBLzkilU9Yr1oT4TrCot8Y2p0jyuJP72x9rG9D8CN5yuEs6AS2sAiw%3D%3D&pageNo=1&numOfRows=10&sidoCd=110000&sgguCd=110019")
+req = conn.getresponse()
+print(req.status,req.reason)
+print(req.read().decode('utf-8'))
 
 
 #def InitTopText():
@@ -73,11 +82,16 @@ class App:
         self.tk.geometry('1080x720')
         self.tk.resizable(False, False)
 
+        self.initData()
+
         self.initBanner()
         self.initSearchingArea()
         self.initClassListArea()
         self.initBookmarkListArea()
         self.initBody()
+
+    def initData(self):
+        pass
 
     def initBanner(self):
         self.banner = Frame(self.tk, bg='red')
