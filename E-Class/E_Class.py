@@ -6,22 +6,45 @@ from tkinter import ttk
 import urllib
 import http.client
 
+from bs4 import BeautifulSoup
+
+import xml.etree.ElementTree as ET
+
+
 conn = http.client.HTTPConnection("kocw.net")
 conn.request("GET",
-             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201"
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201&end_num=10"
              #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
              )
 
 req = conn.getresponse()
-print(req.status, req.reason)
-print(req.read().decode('utf-8'))
+
+raw = req.read().decode('utf-8')
+
+root = ET.fromstring(raw)
+
+items = []
+for item in root.find('list'):
+    data = dict()
+    for d in item:
+        data[d.tag] = d.text
+    items.append(data)
 
 
-conn = http.client.HTTPConnection("apis.data.go.kr")
-conn.request("GET","/B551182/hospInfoService/getHospBasisList?serviceKey=sea100UMmw23Xycs33F1EQnumONR%2F9ElxBLzkilU9Yr1oT4TrCot8Y2p0jyuJP72x9rG9D8CN5yuEs6AS2sAiw%3D%3D&pageNo=1&numOfRows=10&sidoCd=110000&sgguCd=110019")
-req = conn.getresponse()
-print(req.status,req.reason)
-print(req.read().decode('utf-8'))
+# soup = BeautifulSoup(data, 'html.parser')
+# 
+# ItemList=soup.findAll('list_item')
+# 
+# # print(ItemList)
+# 
+# for item in ItemList:
+#     for d in item.contents:
+#         if d != '\n':
+#             print(d)
+# 
+
+
+
 
 
 #def InitTopText():
