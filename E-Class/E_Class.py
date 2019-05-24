@@ -1,7 +1,6 @@
 
 from tkinter import *
 from tkinter import ttk, font
-from pandas import Series, DataFrame
 
 #from tkinter import ttk, font
 #import tkinter.messagebox
@@ -170,10 +169,10 @@ class App:
 
         BodyBoxScrollbar = Scrollbar(self.body4)
         BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        #self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
-                            #yscrollcommand=BodyBoxScrollbar.set)
-        #self.bodyBox.pack()
-        #self.bodyBox.place(x=30,y=0)
+        self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
+                           yscrollcommand=BodyBoxScrollbar.set)
+        self.bodyBox.pack()
+        self.bodyBox.place(x=30,y=0)
 
     def run(self):
         self.tk.mainloop()
