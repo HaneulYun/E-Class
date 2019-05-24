@@ -29,74 +29,6 @@ for item in root.find('list'):
     items.append(data)
 
 
-# soup = BeautifulSoup(data, 'html.parser')
-# 
-# ItemList=soup.findAll('list_item')
-# 
-# # print(ItemList)
-# 
-# for item in ItemList:
-#     for d in item.contents:
-#         if d != '\n':
-#             print(d)
-# 
-
-
-
-
-
-#def InitTopText():
-#    TempFont = font.Font(g_Tk, size=50, weight='bold', family='Consolas')
-#    MainText = Label(g_Tk, font=TempFont, text="E-Class")
-#    MainText.pack()
-#    MainText.place(x=10)
-#
-#
-#def InitSearchListBox():
-#    SearchListBox = StringVar()
-#    SearchListBox = ttk.Combobox(textvariable=SearchListBox, width=9)
-#    #SearchListBox.bind(("<<ComboboxSelected"))
-#    SearchListBox.insert(1, "주제분류")
-#    # SearchListBox.insert(2,"강의이름")
-#    # SearchListBox.insert(3,"교수이름")
-#    # SearchListBox.insert(4,"제공기관")
-#
-#    SearchListBox.place(x=30, y=100)
-#
-#
-#def InitInputLabel():
-#    global InputLabel
-#    TempFont = font.Font(g_Tk)
-#    InputLabel = Entry(g_Tk, font=TempFont, width=20, borderwidth=2, relief='ridge')
-#    InputLabel.pack()
-#    InputLabel.place(x=130, y=100)
-#    # 입력하는 거
-#
-#
-#def InitSearchButton():
-#    TempFont = font.Font(g_Tk)
-#    SearchButton = Button(g_Tk, font=TempFont, text="검색", command=SearchButtonAction)
-#    SearchButton.pack()
-#    SearchButton.place(x=310, y=97)
-#
-#
-#def SearchButtonAction():
-#    global SearchListBox
-#
-#def InitRenderText():
-#    global RenderText
-#
-#    RenderTextScrollbar=Scrollbar(g_Tk)
-#    RenderTextScrollbar.pack()
-#    RenderTextScrollbar.place()
-#    RenderText=Text(g_Tk, width=49, height=27, borderwidth=12, relief='ridge',yscrollcommand=RenderTextScrollbar.set)
-#    RenderText.place()
-#    RenderTextScrollbar.config(command=RenderText.yview)
-#    RenderTextScrollbar.pack()
-#
-#    RenderText.configure(state='disabled')
-#
-
 class App:
     def __init__(self):
         self.tk = Tk()
@@ -111,6 +43,14 @@ class App:
         self.initClassListArea()
         self.initBookmarkListArea()
         self.initBody()
+
+    def selectClass(self, event):
+        self.bodyBox.delete('1.0', END)
+        for key, value in items[event.widget.curselection()[0]].items():
+            self.bodyBox.insert(INSERT, key)
+            self.bodyBox.insert(INSERT, '\n\t\t')
+            self.bodyBox.insert(INSERT, value)
+            self.bodyBox.insert(INSERT, '\n\n')
 
     def initData(self):
         pass
@@ -154,10 +94,15 @@ class App:
         ClassListBoxScrollbar=Scrollbar(self.classListArea)
         ClassListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        ClassListBox=Listbox(self.classListArea, width=60, height=40, borderwidth=2,relief='ridge',
+        self.classListBox=Listbox(self.classListArea, width=60, height=40, borderwidth=2,relief='ridge',
                            yscrollcommand=ClassListBoxScrollbar.set, selectmode=SINGLE)
         #리스트박스일 경우
-        ClassListBox.pack()
+        self.classListBox.pack()
+
+        for i, d in enumerate(items):
+             self.classListBox.insert(i, d['course_id'])
+        
+        self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
         self.bookmarkListArea = Frame(self.tk, bg='yellow')
@@ -169,10 +114,10 @@ class App:
 
         BodyBoxScrollbar = Scrollbar(self.body)
         BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        BodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
+        self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
                             yscrollcommand=BodyBoxScrollbar.set)
-        BodyBox.pack()
-        BodyBox.place(x=30,y=0)
+        self.bodyBox.pack()
+        self.bodyBox.place(x=30,y=0)
 
     def run(self):
         self.tk.mainloop()
