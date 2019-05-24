@@ -127,13 +127,39 @@ class App:
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg='green')
         self.searchingArea.place(x=0, y=100, width=450, height=50)
-        SearchListBox = StringVar()
-        SearchListBox = ttk.Combobox(textvariable=SearchListBox, width=9)
 
-        
+        SearchListBox1 = StringVar()
+        SearchListBox1 = ttk.Combobox(textvariable=SearchListBox1, width=6)
+        SearchListBox1.place(x=10,y=115)
+        SearchListBox2 = StringVar()
+        SearchListBox2 = ttk.Combobox(textvariable=SearchListBox1, width=6)
+        SearchListBox2.place(x=80, y=115)
+        SearchListBox3 = StringVar()
+        SearchListBox3 = ttk.Combobox(textvariable=SearchListBox1, width=6)
+        SearchListBox3.place(x=150, y=115)
+        #combobox 3개
+
+        InputLabel = Entry(self.tk, width=25, borderwidth=2, relief='ridge')
+        InputLabel.pack()
+        InputLabel.place(x=220, y=115)
+        #검색하는 박스
+
+        SearchButton = Button(self.tk, text="검색") #command 추가해야함
+        SearchButton.pack()
+        SearchButton.place(x=410, y=113)
+        #검색 버튼
+
     def initClassListArea(self):
         self.classListArea = Frame(self.tk, bg='blue')
         self.classListArea.place(x=0, y=150, width=450, height=350)
+
+        ClassListBoxScrollbar=Scrollbar(self.classListArea)
+        ClassListBoxScrollbar.pack(side=RIGHT,fill=Y)
+
+        ClassListBox=Listbox(self.classListArea, width=60, height=40, borderwidth=2,relief='ridge',
+                           yscrollcommand=ClassListBoxScrollbar.set, selectmode=SINGLE)
+        #리스트박스일 경우
+        ClassListBox.pack()
 
     def initBookmarkListArea(self):
         self.bookmarkListArea = Frame(self.tk, bg='yellow')
@@ -142,6 +168,13 @@ class App:
     def initBody(self):
         self.body = Frame(self.tk, bg='white')
         self.body.place(x=450, y=100, width=630, height=620)
+
+        BodyBoxScrollbar = Scrollbar(self.body)
+        BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
+        BodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
+                            yscrollcommand=BodyBoxScrollbar.set)
+        BodyBox.pack()
+        BodyBox.place(x=30,y=0)
 
     def run(self):
         self.tk.mainloop()
