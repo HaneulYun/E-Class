@@ -6,8 +6,6 @@ from tkinter import ttk
 import urllib
 import http.client
 
-from bs4 import BeautifulSoup
-
 import xml.etree.ElementTree as ET
 
 conn = http.client.HTTPConnection("kocw.net")
