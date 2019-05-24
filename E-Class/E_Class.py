@@ -1,6 +1,8 @@
 
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, font
+from pandas import Series, DataFrame
+
 #from tkinter import ttk, font
 #import tkinter.messagebox
 import urllib
@@ -10,8 +12,8 @@ import xml.etree.ElementTree as ET
 
 conn = http.client.HTTPConnection("kocw.net")
 conn.request("GET",
-             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201&end_num=10"
-             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=1&from=20170101&to=20170201&end_num=10"
+             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
              )
 
 req = conn.getresponse()
@@ -80,7 +82,7 @@ class App:
 
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg='green')
-        self.searchingArea.place(x=0, y=100, width=450, height=50)
+        self.searchingArea.place(x=0, y=100, width=450, height=100)
 
         SearchListBox1 = StringVar()
         SearchListBox1 = ttk.Combobox(textvariable=SearchListBox1, width=6)
@@ -105,12 +107,12 @@ class App:
 
     def initClassListArea(self):
         self.classListArea = Frame(self.tk, bg='blue')
-        self.classListArea.place(x=0, y=150, width=450, height=350)
+        self.classListArea.place(x=0, y=200, width=450, height=350)
 
         ClassListBoxScrollbar=Scrollbar(self.classListArea)
         ClassListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListArea, width=60, height=40, borderwidth=2,relief='ridge',
+        self.classListBox=Listbox(self.classListArea, width=60, height=20, borderwidth=2,relief='ridge',
                            yscrollcommand=ClassListBoxScrollbar.set, selectmode=SINGLE)
         #리스트박스일 경우
         self.classListBox.pack()
@@ -125,15 +127,46 @@ class App:
         self.bookmarkListArea.place(x=0, y=500, width=450, height=220)
 
     def initBody(self):
-        self.body = Frame(self.tk, bg='white')
-        self.body.place(x=450, y=100, width=630, height=620)
 
-        BodyBoxScrollbar = Scrollbar(self.body)
+        self.body = Frame(self.tk, bg='white')
+        self.body.place(x=460, y=100, width=290, height=300)
+        #이미지
+
+        self.body2=Frame(self.tk,bg='green')
+        self.body2.place(x=760, y=100, width=290,height=300)
+
+        #self.bodyBox2=ttk.Treeview(self.body2, height=100)
+
+        #self.style=ttk.Style()
+        #self.style.configure("Treeview.Insert",font=(None,100))
+
+        #self.bodyBox2["columns"]=("one")
+        #self.bodyBox2.column("#0",width=100)
+        #self.bodyBox2.column("one",width=190)
+        #self.bodyBox2.insert("","end",text="주제분류")
+        #self.bodyBox2.insert("", "end", text="강의이름")
+        #self.bodyBox2.insert("", "end", text="강의자")
+        #self.bodyBox2.insert("", "end", text="제공기관")
+        #self.bodyBox2.insert("", "end", text="강의기간")
+
+
+        #self.bodyBox2.pack()
+        #주제분류, 강의이름, 강의자, 제공기관, 강의기간
+
+        #self.body3=Frame(self.tk,bg='purple')
+        #self.body3.place(x=860, y=100, width=190, height=300)
+        #그에 따른 실제 내용
+
+        self.body4=Frame(self.tk, bg='pink')
+        self.body4.place(x=460, y=410, width=600, height=300)
+        #강의소개, 홈페이지 링크
+
+        BodyBoxScrollbar = Scrollbar(self.body4)
         BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
-                            yscrollcommand=BodyBoxScrollbar.set)
-        self.bodyBox.pack()
-        self.bodyBox.place(x=30,y=0)
+        #self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
+                            #yscrollcommand=BodyBoxScrollbar.set)
+        #self.bodyBox.pack()
+        #self.bodyBox.place(x=30,y=0)
 
     def run(self):
         self.tk.mainloop()
