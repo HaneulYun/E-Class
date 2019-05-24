@@ -1,49 +1,11 @@
 
 from tkinter import *
-from tkinter import ttk
-#from tkinter import ttk, font
+from tkinter import ttk, font
 #import tkinter.messagebox
 import urllib
 import http.client
 
 import xml.etree.ElementTree as ET
-
-conn = http.client.HTTPConnection("kocw.net")
-conn.request("GET",
-             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201&end_num=10"
-             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
-             )
-
-req = conn.getresponse()
-
-raw = req.read().decode('utf-8')
-
-root = ET.fromstring(raw)
-
-items = []
-for item in root.find('list'):
-    data = dict()
-    for d in item:
-        data[d.tag] = d.text
-    items.append(data)
-
-category = dict()
-
-for d in items:
-    if 'taxon' in d.keys():
-        taxon = d['taxon'].split('>')
-
-        if not taxon[0] in category:
-            category[taxon[0]] = dict()
-
-        if not taxon[1] in category[taxon[0]]:
-            category[taxon[0]][taxon[1]] = dict()
-
-        if not taxon[2] in category[taxon[0]][taxon[1]]:
-            category[taxon[0]][taxon[1]][taxon[2]] = 0
-
-
-
 
 class App:
     def __init__(self):
@@ -51,6 +13,8 @@ class App:
         self.tk.title('E-Class')
         self.tk.geometry('1080x720')
         self.tk.resizable(False, False)
+
+        self.items = []
 
         self.initData()
 
@@ -60,9 +24,52 @@ class App:
         self.initBookmarkListArea()
         self.initBody()
 
+    def searchClass(self):
+        id = self.searchComboBox1.current()
+
+        if id < 0:
+            return
+
+        conn = http.client.HTTPConnection("kocw.net")
+        conn.request("GET",
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=" + str(id+1) + "&from=20170101&to=20170201&end_num=10"
+             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=1&from=20170101&to=20180201&end_num=10000"
+             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
+             )
+        req = conn.getresponse()
+        xml = req.read().decode('utf-8')
+
+        root = ET.fromstring(xml)
+
+        self.items.clear()
+        for item in root.find('list'):
+            data = dict()
+            for d in item:
+                data[d.tag] = d.text
+            self.items.append(data)
+
+        category = dict()
+
+        for d in self.items:
+            if 'taxon' in d.keys():
+                taxon = d['taxon'].split('>')
+        
+                if not taxon[0] in category:
+                    category[taxon[0]] = dict()
+        
+                if not taxon[1] in category[taxon[0]]:
+                    category[taxon[0]][taxon[1]] = dict()
+        
+                if not taxon[2] in category[taxon[0]][taxon[1]]:
+                    category[taxon[0]][taxon[1]][taxon[2]] = 0
+        
+                self.classListBox.delete(0, END)
+                for i, d in enumerate(self.items):
+                     self.classListBox.insert(i, d['course_id'])
+
     def selectClass(self, event):
         self.bodyBox.delete('1.0', END)
-        for key, value in items[event.widget.curselection()[0]].items():
+        for key, value in self.items[event.widget.curselection()[0]].items():
             self.bodyBox.insert(INSERT, key)
             self.bodyBox.insert(INSERT, '\n\t\t')
             self.bodyBox.insert(INSERT, value)
@@ -82,26 +89,28 @@ class App:
         self.searchingArea = Frame(self.tk, bg='green')
         self.searchingArea.place(x=0, y=100, width=450, height=50)
 
-        SearchListBox1 = StringVar()
-        SearchListBox1 = ttk.Combobox(textvariable=SearchListBox1, width=6)
-        SearchListBox1.place(x=10,y=115)
-        SearchListBox2 = StringVar()
-        SearchListBox2 = ttk.Combobox(textvariable=SearchListBox1, width=6)
-        SearchListBox2.place(x=80, y=115)
-        SearchListBox3 = StringVar()
-        SearchListBox3 = ttk.Combobox(textvariable=SearchListBox1, width=6)
-        SearchListBox3.place(x=150, y=115)
+        values=['인문과학', '사회과학', '공학', '자연과학',
+                '교육학', '의약학', '예술체육']
+        self.searchComboBox1 = ttk.Combobox(self.searchingArea, width=8, values=values)
+        self.searchComboBox1.place(x=10,y=15)
+        self.searchComboBox2 = ttk.Combobox(self.searchingArea, width=8)
+        self.searchComboBox2.place(x=90, y=15)
+        self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
+        self.searchComboBox3.place(x=170, y=15)
+
         #combobox 3개
 
-        InputLabel = Entry(self.tk, width=25, borderwidth=2, relief='ridge')
+        InputLabel = Entry(self.searchingArea, width=20, borderwidth=2, relief='ridge')
         InputLabel.pack()
-        InputLabel.place(x=220, y=115)
+        InputLabel.place(x=250, y=15)
         #검색하는 박스
 
-        SearchButton = Button(self.tk, text="검색") #command 추가해야함
+        SearchButton = Button(self.searchingArea, text="검색", command=self.searchClass)
         SearchButton.pack()
-        SearchButton.place(x=410, y=113)
+        SearchButton.place(x=410, y=13)
         #검색 버튼
+
+        self.searchComboBox1.set('주제 분류')
 
     def initClassListArea(self):
         self.classListArea = Frame(self.tk, bg='blue')
@@ -115,9 +124,6 @@ class App:
         #리스트박스일 경우
         self.classListBox.pack()
 
-        for i, d in enumerate(items):
-             self.classListBox.insert(i, d['course_id'])
-        
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
