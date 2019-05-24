@@ -10,11 +10,10 @@ from bs4 import BeautifulSoup
 
 import xml.etree.ElementTree as ET
 
-
 conn = http.client.HTTPConnection("kocw.net")
 conn.request("GET",
-             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201&end_num=10"
-             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
+             #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20170101&to=20170201&end_num=10"
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
              )
 
 req = conn.getresponse()
@@ -29,6 +28,23 @@ for item in root.find('list'):
     for d in item:
         data[d.tag] = d.text
     items.append(data)
+
+category = dict()
+
+for d in items:
+    if 'taxon' in d.keys():
+        taxon = d['taxon'].split('>')
+
+        if not taxon[0] in category:
+            category[taxon[0]] = dict()
+
+        if not taxon[1] in category[taxon[0]]:
+            category[taxon[0]][taxon[1]] = dict()
+
+        if not taxon[2] in category[taxon[0]][taxon[1]]:
+            category[taxon[0]][taxon[1]][taxon[2]] = 0
+
+
 
 
 class App:
