@@ -83,6 +83,7 @@ class App:
         self.body3box3.delete('1.0', END)
         self.body3box4.delete('1.0', END)
         self.body3box5.delete('1.0', END)
+        self.body_image=None
         for key, value in self.items[event.widget.curselection()[0]].items():
             if key == 'taxon':
                 self.body3box1.insert(INSERT, value)
@@ -95,21 +96,17 @@ class App:
             elif key=='term':
                 self.body3box5.insert(INSERT, value)
             elif key=='thumbnail_url':
-                #conn = http.client.HTTPConnection("kocw.net")
-                #conn.request("GET", value)
-                #req = conn.getresponse()
                 with urllib.request.urlopen(value) as u:
                     raw_data=u.read()
 
                 im=Image.open(BytesIO(raw_data))
                 self.body_image=ImageTk.PhotoImage(im)
-                #self.body_image = PhotoImage(file=req)
-                self.body_label.configure(image=self.body_image)
             elif key=='course_url':
                 self.homepage_url=value
             else:
                 string = '{:<20} : {}\n'.format(key, value)
                 self.body4box.insert(INSERT, string)
+        self.body_label.configure(image=self.body_image)
 
     def initData(self):
         pass
