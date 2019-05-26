@@ -1,7 +1,7 @@
 
 from tkinter import *
 from tkinter import ttk, font
-
+import webbrowser
 #from tkinter import ttk, font
 #import tkinter.messagebox
 import urllib
@@ -17,6 +17,7 @@ class App:
         self.tk.resizable(False, False)
 
         self.items = []
+        self.homepage_url = ''
 
         self.initData()
 
@@ -88,6 +89,8 @@ class App:
                 self.body3box4.insert(INSERT, value)
             elif key=='term':
                 self.body3box5.insert(INSERT, value)
+            elif key=='course_url':
+                self.homepage_url=value
             else:
                 string = '{:<20} : {}\n'.format(key, value)
                 self.body4box.insert(INSERT, string)
@@ -149,10 +152,10 @@ class App:
 
     def initBody(self):
 
-        self.body = Frame(self.tk, bg='white')
+        self.body = Frame(self.tk)
         self.body.place(x=460, y=100, width=290, height=300)
 
-        self.body_image=PhotoImage(file="")
+        self.body_image=PhotoImage(file="e-class_logo.png")
         self.body_label=Label(self.tk, image=self.body_image)
         self.body_label.place(x=460, y=100)
 
@@ -179,7 +182,7 @@ class App:
         self.body2box5.place(x=750, y=340)
         #주제분류, 강의이름, 강의자, 제공기관, 강의기간
 
-        self.body3=Frame(self.tk,bg="purple")
+        self.body3=Frame(self.tk)
         self.body3.place(x=860, y=100, width=190, height=300)
         #그에 따른 실제 내용
 
@@ -209,6 +212,14 @@ class App:
                            yscrollcommand=BodyBoxScrollbar.set)
         self.body4box.pack()
         self.body4box.place(x=20,y=0)
+
+
+        button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
+        button.place(x=940,y=70)
+        #홈페이지 링크 버튼
+
+    def click_homepage(self):
+        webbrowser.open_new(self.homepage_url)
 
     def run(self):
         self.tk.mainloop()
