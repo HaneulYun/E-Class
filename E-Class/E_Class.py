@@ -4,7 +4,12 @@ from tkinter import ttk, font
 
 #from tkinter import ttk, font
 #import tkinter.messagebox
+
+from io import BytesIO
+from PIL import Image, ImageTk
+
 import urllib
+import urllib.request
 import http.client
 
 import xml.etree.ElementTree as ET
@@ -88,6 +93,17 @@ class App:
                 self.body3box4.insert(INSERT, value)
             elif key=='term':
                 self.body3box5.insert(INSERT, value)
+            elif key=='thumbnail_url':
+                #conn = http.client.HTTPConnection("kocw.net")
+                #conn.request("GET", value)
+                #req = conn.getresponse()
+                with urllib.request.urlopen(value) as u:
+                    raw_data=u.read()
+
+                im=Image.open(BytesIO(raw_data))
+                self.body_image=ImageTk.PhotoImage(im)
+                #self.body_image = PhotoImage(file=req)
+                self.body_label.configure(image=self.body_image)
             else:
                 string = '{:<20} : {}\n'.format(key, value)
                 self.body4box.insert(INSERT, string)
