@@ -70,10 +70,26 @@ class App:
                      self.classListBox.insert(i, d['course_id'])
 
     def selectClass(self, event):
-        self.body4Box.delete('1.0', END)
+        self.body4box.delete('1.0', END)
+        self.body3box1.delete('1.0', END)
+        self.body3box2.delete('1.0', END)
+        self.body3box3.delete('1.0', END)
+        self.body3box4.delete('1.0', END)
+        self.body3box5.delete('1.0', END)
         for key, value in self.items[event.widget.curselection()[0]].items():
-            string = '{:<20} : {}\n'.format(key, value)
-            self.body4Box.insert(INSERT, string)
+            if key == 'taxon':
+                self.body3box1.insert(INSERT, value)
+            elif key == 'course_title':
+                self.body3box2.insert(INSERT, value)
+            elif key == 'lecturer':
+                self.body3box3.insert(INSERT, value)
+            elif key=='provider':
+                self.body3box4.insert(INSERT, value)
+            elif key=='term':
+                self.body3box5.insert(INSERT, value)
+            else:
+                string = '{:<20} : {}\n'.format(key, value)
+                self.body4box.insert(INSERT, string)
 
     def initData(self):
         pass
@@ -151,13 +167,13 @@ class App:
         self.body2box2 = Label(self.tk, width=15, height=4, text="강의이름")
         self.body2box2.pack()
         self.body2box2.place(x=750, y=160)
-        self.body2box3 = Label(self.tk, width=15, height=4, text="강의자")
+        self.body2box3 = Label(self.tk, width=15, height=4, text="교수자명")
         self.body2box3.pack()
         self.body2box3.place(x=750, y=220)
         self.body2box4 = Label(self.tk, width=15, height=4, text="제공기관")
         self.body2box4.pack()
         self.body2box4.place(x=750, y=280)
-        self.body2box5 = Label(self.tk, width=15, height=4, text="강의기간")
+        self.body2box5 = Label(self.tk, width=15, height=4, text="강의학기")
         self.body2box5.pack()
         self.body2box5.place(x=750, y=340)
         #주제분류, 강의이름, 강의자, 제공기관, 강의기간
@@ -188,10 +204,10 @@ class App:
 
         BodyBoxScrollbar = Scrollbar(self.body4)
         BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        self.body4Box = Text(self.body4, width=80, height=50, borderwidth=2, relief='ridge',
+        self.body4box = Text(self.body4, width=80, height=50, borderwidth=2, relief='ridge',
                            yscrollcommand=BodyBoxScrollbar.set)
-        self.body4Box.pack()
-        self.body4Box.place(x=20,y=0)
+        self.body4box.pack()
+        self.body4box.place(x=20,y=0)
 
     def run(self):
         self.tk.mainloop()
