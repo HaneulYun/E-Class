@@ -171,7 +171,7 @@ class App:
         self.body = Frame(self.tk)
         self.body.place(x=460, y=100, width=290, height=300)
 
-        self.body_image=PhotoImage(file="e-class_logo.png")
+        self.body_image = None#=PhotoImage(file="e-class_logo.png")
         self.body_label=Label(self.tk, image=self.body_image)
         self.body_label.place(x=460, y=100)
 
