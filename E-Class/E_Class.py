@@ -34,7 +34,7 @@ class App:
 
         conn = http.client.HTTPConnection("kocw.net")
         conn.request("GET",
-             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=" + str(id+1) + "&from=20170101&to=20170201&end_num=10"
+             "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=" + str(id+1) + "&from=20170101&to=20170201&end_num=999"
              #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=1&from=20170101&to=20180201&end_num=10000"
              #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
              )
@@ -72,10 +72,8 @@ class App:
     def selectClass(self, event):
         self.bodyBox.delete('1.0', END)
         for key, value in self.items[event.widget.curselection()[0]].items():
-            self.bodyBox.insert(INSERT, key)
-            self.bodyBox.insert(INSERT, '\n\t\t')
-            self.bodyBox.insert(INSERT, value)
-            self.bodyBox.insert(INSERT, '\n\n')
+            string = '{:<20} : {}\n'.format(key, value)
+            self.bodyBox.insert(INSERT, string)
 
     def initData(self):
         pass
