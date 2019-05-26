@@ -65,9 +65,10 @@ class App:
                 if not taxon[2] in category[taxon[0]][taxon[1]]:
                     category[taxon[0]][taxon[1]][taxon[2]] = 0
         
-                self.classListBox.delete(0, END)
-                for i, d in enumerate(self.items):
-                     self.classListBox.insert(i, d['course_id'])
+        self.classListBox.delete(0, END)
+        for i, d in enumerate(self.items):
+            if 'course_title' in d.keys():
+                self.classListBox.insert(i, d['course_title'])
 
     def selectClass(self, event):
         self.body4Box.delete('1.0', END)
