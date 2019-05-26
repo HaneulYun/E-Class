@@ -136,30 +136,45 @@ class App:
         self.body.place(x=460, y=100, width=290, height=300)
         #이미지
 
-        self.body2=Frame(self.tk,bg='green')
+        self.body2=Frame(self.tk,bg="green")
         self.body2.place(x=760, y=100, width=290,height=300)
 
-        #self.bodyBox2=ttk.Treeview(self.body2, height=100)
-
-        #self.style=ttk.Style()
-        #self.style.configure("Treeview.Insert",font=(None,100))
-
-        #self.bodyBox2["columns"]=("one")
-        #self.bodyBox2.column("#0",width=100)
-        #self.bodyBox2.column("one",width=190)
-        #self.bodyBox2.insert("","end",text="주제분류")
-        #self.bodyBox2.insert("", "end", text="강의이름")
-        #self.bodyBox2.insert("", "end", text="강의자")
-        #self.bodyBox2.insert("", "end", text="제공기관")
-        #self.bodyBox2.insert("", "end", text="강의기간")
-
-
-        #self.bodyBox2.pack()
+        self.body2box1=Label(self.tk,  width=15, height=4, text="주제분류")
+        self.body2box1.pack()
+        self.body2box1.place(x=750,y=100)
+        self.body2box2 = Label(self.tk, width=15, height=4, text="강의이름")
+        self.body2box2.pack()
+        self.body2box2.place(x=750, y=160)
+        self.body2box3 = Label(self.tk, width=15, height=4, text="강의자")
+        self.body2box3.pack()
+        self.body2box3.place(x=750, y=220)
+        self.body2box4 = Label(self.tk, width=15, height=4, text="제공기관")
+        self.body2box4.pack()
+        self.body2box4.place(x=750, y=280)
+        self.body2box5 = Label(self.tk, width=15, height=4, text="강의기간")
+        self.body2box5.pack()
+        self.body2box5.place(x=750, y=340)
         #주제분류, 강의이름, 강의자, 제공기관, 강의기간
 
-        #self.body3=Frame(self.tk,bg='purple')
-        #self.body3.place(x=860, y=100, width=190, height=300)
+        self.body3=Frame(self.tk,bg="purple")
+        self.body3.place(x=860, y=100, width=190, height=300)
         #그에 따른 실제 내용
+
+        self.body3box1 = Text(self.tk, width=27, height=4,borderwidth=2)
+        self.body3box1.pack()
+        self.body3box1.place(x=860, y=100)
+        self.body3box2 = Text(self.tk, width=27, height=4, borderwidth=2)
+        self.body3box2.pack()
+        self.body3box2.place(x=860, y=160)
+        self.body3box3 = Text(self.tk, width=27, height=4, borderwidth=2)
+        self.body3box3.pack()
+        self.body3box3.place(x=860, y=220)
+        self.body3box4 = Text(self.tk, width=27, height=4, borderwidth=2)
+        self.body3box4.pack()
+        self.body3box4.place(x=860, y=280)
+        self.body3box5 = Text(self.tk, width=27, height=4, borderwidth=2)
+        self.body3box5.pack()
+        self.body3box5.place(x=860, y=340)
 
         self.body4=Frame(self.tk, bg='pink')
         self.body4.place(x=460, y=410, width=600, height=300)
