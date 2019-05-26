@@ -70,10 +70,10 @@ class App:
                      self.classListBox.insert(i, d['course_id'])
 
     def selectClass(self, event):
-        self.bodyBox.delete('1.0', END)
+        self.body4Box.delete('1.0', END)
         for key, value in self.items[event.widget.curselection()[0]].items():
             string = '{:<20} : {}\n'.format(key, value)
-            self.bodyBox.insert(INSERT, string)
+            self.body4Box.insert(INSERT, string)
 
     def initData(self):
         pass
@@ -134,6 +134,12 @@ class App:
 
         self.body = Frame(self.tk, bg='white')
         self.body.place(x=460, y=100, width=290, height=300)
+
+        self.body_image=PhotoImage(file="")
+        self.body_label=Label(self.tk, image=self.body_image)
+        self.body_label.place(x=460, y=100)
+
+
         #이미지
 
         self.body2=Frame(self.tk,bg="green")
@@ -182,10 +188,10 @@ class App:
 
         BodyBoxScrollbar = Scrollbar(self.body4)
         BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        self.bodyBox = Text(self.body, width=80, height=50, borderwidth=2, relief='ridge',
+        self.body4Box = Text(self.body4, width=80, height=50, borderwidth=2, relief='ridge',
                            yscrollcommand=BodyBoxScrollbar.set)
-        self.bodyBox.pack()
-        self.bodyBox.place(x=30,y=0)
+        self.body4Box.pack()
+        self.body4Box.place(x=20,y=0)
 
     def run(self):
         self.tk.mainloop()
