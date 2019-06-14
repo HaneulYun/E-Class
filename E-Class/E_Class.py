@@ -32,6 +32,18 @@ class App:
         self.initBookmarkListArea()
         self.initBody()
 
+        ####내가 한 곳###
+        self.v=IntVar()
+        radio1=Radiobutton(self.tk,text="리스트",variable=self.v,value=1, command=self.initClassListArea)
+        radio1.pack()
+        radio1.place(x=10,y=170)
+
+        radio2 = Radiobutton(self.tk, text="썸네일", variable=self.v, value=2) #command 썸네일일 때 되게 해야함
+        radio2.pack()
+        radio2.place(x=80, y=170)
+        ###내가 한 곳###
+
+
     def searchClass(self):
         id = self.searchComboBox1.current()
 
@@ -61,16 +73,16 @@ class App:
         for d in self.items:
             if 'taxon' in d.keys():
                 taxon = d['taxon'].split('>')
-        
+
                 if not taxon[0] in category:
                     category[taxon[0]] = dict()
-        
+
                 if not taxon[1] in category[taxon[0]]:
                     category[taxon[0]][taxon[1]] = dict()
-        
+
                 if not taxon[2] in category[taxon[0]][taxon[1]]:
                     category[taxon[0]][taxon[1]][taxon[2]] = 0
-        
+
         self.classListBox.delete(0, END)
         for i, d in enumerate(self.items):
             if 'course_title' in d.keys():
@@ -156,7 +168,6 @@ class App:
                            yscrollcommand=ClassListBoxScrollbar.set, selectmode=SINGLE)
         #리스트박스일 경우
         self.classListBox.pack()
-
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
