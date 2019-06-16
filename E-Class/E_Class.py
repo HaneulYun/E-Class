@@ -123,6 +123,10 @@ class App:
                 string = '{:<10} : {}\n'.format(key, value)
                 self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
 
+    def updateCanvas(self):
+        # self.bookmarkCanvas
+        pass
+
     def selectClass(self, event):
         if event.widget.curselection():
             self.updateBody(self.items[event.widget.curselection()[0]])
@@ -200,17 +204,30 @@ class App:
         ft=font.Font(family="맑은 고딕", size=12)
         self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
         self.bookmarkListText.place(x=5, y=5)
+
+        self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
+        self.bookmarkNotebook.place(x=5, y=40)
         
-        self.bookmarkListAreaFrame = Frame(self.bookmarkListArea)
-        self.bookmarkListAreaFrame.place(x=5, y=40)
+        self.bookmarkListAreaFrame = Frame()
+        self.bookmarkNotebook.add(self.bookmarkListAreaFrame, text='북마크 목록')
         
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
         self.bookmarkListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=9, borderwidth=0,relief='ridge',
+        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=8, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
+
+
+        self.bookmarkCanvasFrame = Frame()
+        self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
+
+        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, width=425, height=125)
+        self.bookmarkCanvas.pack()
+
+        # self.bookmarkCanvas.create_rectangle(0, 0, 4000, 2000, fill='red')
+        # self.bookmarkCanvas.update()
 
     def clickBookmark(self):
         item = None
