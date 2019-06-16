@@ -202,7 +202,6 @@ class App:
         #self.searchComboBox3.place(x=165, y=30)
 
         self.searchButton = Button(self.searchingArea, bg='LightSkyBlue1', text="검색",  width=6, command=self.searchClass)
-        self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
         self.searchButton.place(x=390, y=4)
 
         #검색 버튼
@@ -270,7 +269,6 @@ class App:
         self.bookmarkSendEmailButton.place(x=325, y=20)
 
     def clickBookmark(self):
-        self.updateCanvas()
 
         item = None
 
@@ -292,6 +290,7 @@ class App:
                     self.books.remove(item)
                     self.bookmarkListBox.delete(i, i)
 
+        self.updateCanvas()
 
     def insertmail(self):
         self.window = Tk()
@@ -353,14 +352,14 @@ class App:
         self.bodyClassUrl.place(x=5, y=305)
 
 
-        ft=font.Font(family="메이플스토리", size=10)
+        ft=font.Font(family="메이플스토리", size=12)
         self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
         self.bodyDescription.place(x=5, y=420)
 
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
 
-        button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
+        button=Button(self.tk, width=15, bg='LightSkyBlue1', text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
 
         #홈페이지 링크 버튼
