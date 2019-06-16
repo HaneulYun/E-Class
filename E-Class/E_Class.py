@@ -95,7 +95,7 @@ class App:
         self.bodyImage = PhotoImage(file="no_image_icon.png")
 
         self.bodyImageLabel.configure(width=250, height=130, image=self.bodyImage)
-        self.bodyEntryTest['text'] = ''
+        #self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in item.items():
             if key == 'taxon':
@@ -131,8 +131,9 @@ class App:
             elif key in ['list_num', 'course_id', 'action', 'status', 'content_type']:
                 pass
             else:
-                string = '{:<10} : {}\n'.format(key, value)
-                self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
+                pass
+                #string = '{:<10} : {}\n'.format(key, value)
+                #self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
 
     def updateCanvas(self):
         self.bookmarkCanvas.delete('value')
