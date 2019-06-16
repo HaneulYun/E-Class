@@ -24,6 +24,7 @@ class App:
 
 
         self.items = []
+        self.bookmarks = []
         self.bookmarkname=''
         self.homepage_url = ''
         self.email_address=''
