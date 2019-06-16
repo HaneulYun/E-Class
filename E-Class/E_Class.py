@@ -92,13 +92,9 @@ class App:
                 self.classListBox.insert(i, d['course_title'])
 
     def updateBody(self, item):
-<<<<<<< HEAD
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-=======
         self.updateCanvas()
 
-        self.bodyImage = PhotoImage(file="e-class_logo.png")
->>>>>>> bfe7db3440be916c2e44c125c988b135866e032f
         self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
