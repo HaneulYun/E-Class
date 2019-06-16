@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1696a837-bb5a-4c81-adcc-19e232052d6d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>E_Class.py</StartupFile>
+    <StartupFile>teller.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="E_Class.py" />
+    <Compile Include="noti.py" />
+    <Compile Include="teller.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
