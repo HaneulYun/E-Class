@@ -140,14 +140,14 @@ class App:
         pass
 
     def initBanner(self):
-        self.banner = Frame(self.tk)
+        self.banner = Frame(self.tk,bg='white')
         self.banner.place(x=0, y=0, width=1080, height=100)
         self.logo=PhotoImage(file="e-class_logo.png")
-        self.logo_label=Label(self.tk,image=self.logo)
+        self.logo_label=Label(self.tk, bg='white', image=self.logo)
         self.logo_label.place(x=0,y=0)
 
     def initSearchingArea(self):
-        self.searchingArea = Frame(self.tk, bg='green')
+        self.searchingArea = Frame(self.tk, bg='white')
         self.searchingArea.place(x=0, y=100, width=450, height=60)
 
         values=['인문과학', '사회과학', '공학', '자연과학',
@@ -160,7 +160,7 @@ class App:
         self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
         self.searchComboBox3.place(x=165, y=5)
 
-        self.searchDateGuide = Label(self.searchingArea, text='기간', bg='green')
+        self.searchDateGuide = Label(self.searchingArea, text='기간', bg='white')
         self.searchDateGuide.place(x=265, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
         self.searchDateStart.place(x=305, y=6)
@@ -177,17 +177,20 @@ class App:
         self.searchDateEnd.insert(INSERT, '20191231')
 
     def initClassListArea(self):
-        self.classListArea = Frame(self.tk, bg='blue')
+        self.classListArea = Frame(self.tk, bg='white')
         self.classListArea.place(x=0, y=160, width=450, height=360)
 
         ft=font.Font(family="맑은 고딕", size=12)
-        self.classListText=Label(self.classListArea, text='강의 목록', font=ft)
-        self.classListText.place(x=5, y=5)
+        #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
+                                 #background="",borderwidth=5, font=ft)
+        self.classListImage= PhotoImage(file="class.png")
+        self.classListImage_label = Label(self.classListArea, bg='white', image=self.classListImage)
+        self.classListImage_label.place(x=0, y=0)
 
         self.bookmarkButton = Button(self.classListArea, width=10, text="북마크 등록", command=self.clickBookmark)
         self.bookmarkButton.place(x=365, y=7)
 
-        self.classListAreaFrame = Frame(self.classListArea)
+        self.classListAreaFrame = Frame(self.classListArea,bg='white')
         self.classListAreaFrame.place(x=5, y=40)
 
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
@@ -199,17 +202,19 @@ class App:
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
-        self.bookmarkListArea = Frame(self.tk, bg='yellow')
+        self.bookmarkListArea = Frame(self.tk, bg='white')
         self.bookmarkListArea.place(x=0, y=520, width=450, height=200)
 
         ft=font.Font(family="맑은 고딕", size=12)
-        self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
-        self.bookmarkListText.place(x=5, y=5)
+        #self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
+        self.bookmarkListImage = PhotoImage(file="bookmark.png")
+        self.bookmarkListImage_label = Label(self.bookmarkListArea, bg='white', image=self.bookmarkListImage)
+        self.bookmarkListImage_label.place(x=5, y=0)
 
         self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
         self.bookmarkNotebook.place(x=5, y=40)
         
-        self.bookmarkListAreaFrame = Frame()
+        self.bookmarkListAreaFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkListAreaFrame, text='북마크 목록')
         
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
@@ -221,7 +226,7 @@ class App:
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
 
 
-        self.bookmarkCanvasFrame = Frame()
+        self.bookmarkCanvasFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
 
         self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, width=425, height=125)
@@ -267,7 +272,7 @@ class App:
 
 
     def initBody(self):
-        self.body = Frame(self.tk, bg='red')
+        self.body = Frame(self.tk, bg='white')
         self.body.place(x=450, y=100, width=630, height=620)
 
         ft=font.Font(family="맑은 고딕", size=12)
