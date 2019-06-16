@@ -270,27 +270,32 @@ class App:
         self.body = Frame(self.tk, bg='red')
         self.body.place(x=450, y=100, width=630, height=620)
 
+        ft=font.Font(family="맑은 고딕", size=12)
+        self.bodyTitle = Label(self.body, text='강의정보', font=ft)
+        self.bodyTitle.place(x=5, y=5)
+
+
         self.bodyImage = PhotoImage(file="e-class_logo.png")
         self.bodyImageLabel=Label(self.body, width=250, height=250, image=self.bodyImage)
-        self.bodyImageLabel.place(x=375, y=90)
+        self.bodyImageLabel.place(x=375, y=125)
         
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
-        self.bodyCategory.place(x=5, y=5)
+        self.bodyCategory.place(x=5, y=40)
 
         ft=font.Font(family="맑은 고딕", size=20)
         self.bodyClassName=Label(self.body, text='강의이름 : ', anchor='nw', width=41, font=ft)
-        self.bodyClassName.place(x=5, y=35)
+        self.bodyClassName.place(x=5, y=70)
 
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyClassProvider=Label(self.body, text='제공기관 : ', anchor='nw', font=ft)
-        self.bodyClassProvider.place(x=5, y=90)
+        self.bodyClassProvider.place(x=5, y=125)
 
         self.bodyClassTerm=Label(self.body, text='강의학기 : ', anchor='nw', font=ft)
-        self.bodyClassTerm.place(x=5, y=120)
+        self.bodyClassTerm.place(x=5, y=155)
 
         self.bodyClassLecturer=Label(self.body, text='교수자명 : ', anchor='nw', font=ft)
-        self.bodyClassLecturer.place(x=5, y=150)
+        self.bodyClassLecturer.place(x=5, y=185)
 
         ft=font.Font(family="맑은 고딕", size=10)
         self.bodyDescription=Label(self.body, text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
