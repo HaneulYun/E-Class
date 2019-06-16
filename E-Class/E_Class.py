@@ -89,7 +89,7 @@ class App:
                 self.classListBox.insert(i, d['course_title'])
 
     def updateBody(self, item):
-        self.bodyImage = PhotoImage(file="e-class_logo.png")
+        self.bodyImage = PhotoImage(file="no_image_icon.png")
         self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
@@ -147,8 +147,9 @@ class App:
         self.logo_label.place(x=0,y=0)
 
     def initSearchingArea(self):
-        self.searchingArea = Frame(self.tk, bg='white')
+        self.searchingArea = Frame(self.tk, bg= 'light cyan')
         self.searchingArea.place(x=0, y=100, width=450, height=60)
+        #구분선이 왜 안생기지 정말 모르겠다
 
         values=['인문과학', '사회과학', '공학', '자연과학',
                 '교육학', '의약학', '예술체육']
@@ -160,7 +161,7 @@ class App:
         self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
         self.searchComboBox3.place(x=165, y=5)
 
-        self.searchDateGuide = Label(self.searchingArea, text='기간', bg='white')
+        self.searchDateGuide = Label(self.searchingArea, text='기간')
         self.searchDateGuide.place(x=265, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
         self.searchDateStart.place(x=305, y=6)
@@ -177,14 +178,14 @@ class App:
         self.searchDateEnd.insert(INSERT, '20191231')
 
     def initClassListArea(self):
-        self.classListArea = Frame(self.tk, bg='white')
+        self.classListArea = Frame(self.tk,  bg='light cyan')
         self.classListArea.place(x=0, y=160, width=450, height=360)
 
         ft=font.Font(family="맑은 고딕", size=12)
         #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
                                  #background="",borderwidth=5, font=ft)
         self.classListImage= PhotoImage(file="class.png")
-        self.classListImage_label = Label(self.classListArea, bg='white', image=self.classListImage)
+        self.classListImage_label = Label(self.classListArea,  bg='light cyan', image=self.classListImage)
         self.classListImage_label.place(x=0, y=0)
 
         self.bookmarkButton = Button(self.classListArea, width=10, text="북마크 등록", command=self.clickBookmark)
@@ -196,19 +197,19 @@ class App:
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, bg='ghost white', borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
-        self.bookmarkListArea = Frame(self.tk, bg='white')
+        self.bookmarkListArea = Frame(self.tk,bg='light cyan')
         self.bookmarkListArea.place(x=0, y=520, width=450, height=200)
 
         ft=font.Font(family="맑은 고딕", size=12)
         #self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
         self.bookmarkListImage = PhotoImage(file="bookmark.png")
-        self.bookmarkListImage_label = Label(self.bookmarkListArea, bg='white', image=self.bookmarkListImage)
+        self.bookmarkListImage_label = Label(self.bookmarkListArea, bg='light cyan', image=self.bookmarkListImage)
         self.bookmarkListImage_label.place(x=5, y=0)
 
         self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
@@ -272,17 +273,18 @@ class App:
 
 
     def initBody(self):
-        self.body = Frame(self.tk, bg='white')
+        self.body = Frame(self.tk, bg='light cyan')
         self.body.place(x=450, y=100, width=630, height=620)
 
         ft=font.Font(family="맑은 고딕", size=12)
-        self.bodyTitle = Label(self.body, text='강의정보', font=ft)
-        self.bodyTitle.place(x=5, y=5)
+        self.bodyTitleImage = PhotoImage(file="title1.png")
+        self.bodyTitleImage_Label = Label(self.body, bg='light cyan', image=self.bodyTitleImage)
+        self.bodyTitleImage_Label.place(x=5, y=5)
 
 
-        self.bodyImage = PhotoImage(file="e-class_logo.png")
-        self.bodyImageLabel=Label(self.body, width=250, height=250, image=self.bodyImage)
-        self.bodyImageLabel.place(x=375, y=125)
+        self.bodyImage = PhotoImage(file="no_image_icon.png")
+        self.bodyImage_Label=Label(self.body, width=250, height=250, image=self.bodyImage)
+        self.bodyImage_Label.place(x=375, y=125)
         
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
