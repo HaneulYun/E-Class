@@ -94,7 +94,7 @@ class App:
     def updateBody(self, item):
         self.bodyImage = PhotoImage(file="no_image_icon.png")
 
-        self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel.configure(width=250, height=130, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in item.items():
@@ -114,12 +114,19 @@ class App:
                     raw_data=u.read()
                 im=Image.open(BytesIO(raw_data))
                 self.bodyImage=ImageTk.PhotoImage(im)
-                self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
+                self.bodyImageLabel.configure(width=250, height=130, image=self.bodyImage)
+            elif key == 'lecture_count':
+                self.bodyClassLecture['text']='강의 수 : ' + value
+            elif key == 'view_count':
+                self.bodyClassView['text']='조회 수 : ' + value
+            elif key == 'course_url':
+                self.bodyClassUrl['text']='강의링크 : ' + value
             elif key == 'course_description':
                 self.bodyDescription['text']='강의내용\n' + value
 
-            elif key in ['list_num', 'course_id']:
+            elif key in ['list_num', 'course_id', 'action', 'status', 'content_type']:
                 pass
+
 
             #elif key=='course_url':
             #    self.homepage_url=value
@@ -172,13 +179,13 @@ class App:
         #구분선이 왜 안생기지 정말 모르겠다
 
         
-        self.searchComboBox1Guide = Label(self.searchingArea, text='대분류')
+        self.searchComboBox1Guide = Label(self.searchingArea, bg='azure', text='대분류')
         self.searchComboBox1Guide.place(x=5, y=5)
         self.searchComboBox1 = ttk.Combobox(self.searchingArea, width=8, values=values)
         self.searchComboBox1.place(x=55,y=5)
 
         self.searchDateGuide = Label(self.searchingArea, bg='azure', text='기간')
-        self.searchDateGuide.place(x=265, y=5)
+        self.searchDateGuide.place(x=165, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
         self.searchDateStart.place(x=205, y=6)
         self.searchDateEnd = Entry(self.searchingArea, width=8)
@@ -314,28 +321,36 @@ class App:
 
 
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=130, image=self.bodyImage)
         self.bodyImageLabel.place(x=375, y=125)
         
         ft=font.Font(family="메이플스토리", size=12)
-        self.bodyCategory=Label(self.body,bg='light cyan', text='분류 : ', font=ft)
+        self.bodyCategory=Label(self.body,bg='light cyan', text='분류 : None', font=ft)
         self.bodyCategory.place(x=5, y=45)
 
         ft=font.Font(family="메이플스토리", size=20)
-        self.bodyClassName=Label(self.body, bg='light cyan',text='강의이름 : ', anchor='nw', width=41, font=ft)
+        self.bodyClassName=Label(self.body, bg='light cyan',text='강의이름 : None', anchor='nw', width=41, font=ft)
         self.bodyClassName.place(x=5, y=75)
 
         ft=font.Font(family="메이플스토리", size=12)
-        self.bodyClassProvider=Label(self.body, bg='light cyan',text='제공기관 : ', anchor='nw', font=ft)
+        self.bodyClassProvider=Label(self.body, bg='light cyan',text='제공기관 : None', anchor='nw', font=ft)
         self.bodyClassProvider.place(x=5, y=125)
 
-        ft = font.Font(family="메이플스토리", size=12)
-        self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : ', anchor='nw', font=ft)
+        self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : None', anchor='nw', font=ft)
         self.bodyClassTerm.place(x=5, y=155)
 
-        ft = font.Font(family="메이플스토리", size=12)
-        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : ', anchor='nw', font=ft)
+        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : None', anchor='nw', font=ft)
         self.bodyClassLecturer.place(x=5, y=185)
+
+        self.bodyClassLecture=Label(self.body, bg='light cyan',text='강의 수 : None', anchor='nw', font=ft)
+        self.bodyClassLecture.place(x=5, y=245)
+
+        self.bodyClassView=Label(self.body, bg='light cyan',text='조회 수 : None', anchor='nw', font=ft)
+        self.bodyClassView.place(x=5, y=275)
+
+        self.bodyClassUrl=Label(self.body, bg='light cyan',text='강의링크 : None', anchor='nw', font=ft)
+        self.bodyClassUrl.place(x=5, y=305)
+
 
         ft=font.Font(family="메이플스토리", size=10)
         self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
