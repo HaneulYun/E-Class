@@ -247,6 +247,7 @@ class App:
 
     def sendmail_bookmark(self):
         self.email_address = self.email_entrybox.get()
+        gmail.sendmail(self.email_address,gmail.MakeHtmlDoc(self))
         self.email_entrybox.delete(0, 'end')
         
 
