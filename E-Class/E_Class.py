@@ -16,7 +16,7 @@ import http.client
 import xml.etree.ElementTree as ET
 
 values=['인문과학', '사회과학', '공학', '자연과학',
-        '교육학', '의약학', '예술체육']
+        '교육학', '의약학', '예술ㆍ체육']
 
 class App:
     def __init__(self):
@@ -94,7 +94,7 @@ class App:
     def updateBody(self, item):
         self.bodyImage = PhotoImage(file="no_image_icon.png")
 
-        self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel.configure(width=250, height=130, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in item.items():
@@ -114,12 +114,19 @@ class App:
                     raw_data=u.read()
                 im=Image.open(BytesIO(raw_data))
                 self.bodyImage=ImageTk.PhotoImage(im)
-                self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
+                self.bodyImageLabel.configure(width=250, height=130, image=self.bodyImage)
+            elif key == 'lecture_count':
+                self.bodyClassLecture['text']='강의 수 : ' + value
+            elif key == 'view_count':
+                self.bodyClassView['text']='조회 수 : ' + value
+            elif key == 'course_url':
+                self.bodyClassUrl['text']='강의링크 : ' + value
             elif key == 'course_description':
                 self.bodyDescription['text']='강의내용\n' + value
 
-            elif key in ['list_num', 'course_id']:
+            elif key in ['list_num', 'course_id', 'action', 'status', 'content_type']:
                 pass
+
 
             #elif key=='course_url':
             #    self.homepage_url=value
@@ -137,7 +144,7 @@ class App:
             count[taxon] += 1
         maxCount = int(max(count.values()))
         barW = (425 - 20) / 7
-        height = 125
+        height = 175
         if maxCount == 0:
             return
         for i, d in enumerate(values):
@@ -168,25 +175,39 @@ class App:
 
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg= 'light cyan')
-        self.searchingArea.place(x=0, y=100, width=450, height=60)
+        self.searchingArea.place(x=0, y=100, width=450, height=35)
         #구분선이 왜 안생기지 정말 모르겠다
 
+        
+        self.searchComboBox1Guide = Label(self.searchingArea, bg='azure', text='대분류')
+        self.searchComboBox1Guide.place(x=5, y=5)
         self.searchComboBox1 = ttk.Combobox(self.searchingArea, width=8, values=values)
-        self.searchComboBox1.place(x=5,y=5)
-        self.searchComboBox2 = ttk.Combobox(self.searchingArea, width=8)
-        self.searchComboBox2.place(x=85, y=5)
-        self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
-        self.searchComboBox3.place(x=165, y=5)
+        self.searchComboBox1.place(x=55,y=5)
 
         self.searchDateGuide = Label(self.searchingArea, bg='azure', text='기간')
-        self.searchDateGuide.place(x=265, y=5)
+        self.searchDateGuide.place(x=165, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
-        self.searchDateStart.place(x=305, y=6)
+        self.searchDateStart.place(x=205, y=6)
         self.searchDateEnd = Entry(self.searchingArea, width=8)
-        self.searchDateEnd.place(x=385, y=6)
+        self.searchDateEnd.place(x=285, y=6)
 
+        #self.searchComboBox2Guide = Label(self.searchingArea, text='대분류')
+        #self.searchComboBox2Guide.place(x=5, y=5)
+        #self.searchComboBox2 = ttk.Combobox(self.searchingArea, width=8)
+        #self.searchComboBox2.place(x=35, y=30)
+
+        #self.searchComboBox3Guide = Label(self.searchingArea, text='대분류')
+        #self.searchComboBox3Guide.place(x=5, y=5)
+        #self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
+        #self.searchComboBox3.place(x=165, y=30)
+
+<<<<<<< HEAD
         self.searchButton = Button(self.searchingArea, bg='LightSkyBlue1', text="검색",  width=6, command=self.searchClass)
         self.searchButton.place(x=395, y=30)
+=======
+        self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
+        self.searchButton.place(x=390, y=4)
+>>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
         #검색 버튼
         self.searchComboBox1.set('주제 분류')
@@ -196,7 +217,7 @@ class App:
 
     def initClassListArea(self):
         self.classListArea = Frame(self.tk,  bg='light cyan')
-        self.classListArea.place(x=0, y=160, width=450, height=360)
+        self.classListArea.place(x=0, y=130, width=450, height=330)
 
         #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
                                  #background="",borderwidth=5, font=ft)
@@ -204,8 +225,13 @@ class App:
         self.classListImage_label = Label(self.classListArea,  bg='light cyan', image=self.classListImage)
         self.classListImage_label.place(x=0, y=0)
 
+<<<<<<< HEAD
         self.bookmarkButton = Button(self.classListArea, width=14, bg='LightSkyBlue1', text="북마크 등록/해제", command=self.clickBookmark)
         self.bookmarkButton.place(x=340, y=20)
+=======
+        self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
+        self.bookmarkButton.place(x=335, y=20)
+>>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
         self.classListAreaFrame.place(x=5, y=50)
@@ -213,14 +239,14 @@ class App:
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, bg='azure', borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=17, bg='azure', borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
         self.bookmarkListArea = Frame(self.tk,bg='light cyan')
-        self.bookmarkListArea.place(x=0, y=520, width=450, height=200)
+        self.bookmarkListArea.place(x=0, y=460, width=450, height=260)
 
         ft=font.Font(family="맑은 고딕", size=12)
         #self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
@@ -228,8 +254,8 @@ class App:
         self.bookmarkListImage_label = Label(self.bookmarkListArea, bg='light cyan', image=self.bookmarkListImage)
         self.bookmarkListImage_label.place(x=5, y=0)
 
-        self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
-        self.bookmarkNotebook.place(x=5, y=40),
+        self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=180)
+        self.bookmarkNotebook.place(x=5, y=50),
         
         self.bookmarkListAreaFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkListAreaFrame, text='북마크 목록')
@@ -237,7 +263,7 @@ class App:
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
         self.bookmarkListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, bg='azure', width=60, height=8, borderwidth=0,relief='ridge',
+        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, bg='azure', width=60, height=12, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
@@ -246,11 +272,16 @@ class App:
         self.bookmarkCanvasFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
 
-        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=425, height=125)
+        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=435, height=175)
         self.bookmarkCanvas.pack()
 
+<<<<<<< HEAD
         self.bookmarkSendEmailButton = Button(self.bookmarkListArea, bg='LightSkyBlue1', width=15, text="북마크 메일 전송 ", command=self.insertmail)
         self.bookmarkSendEmailButton.place(x=330, y=7)
+=======
+        self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
+        self.bookmarkSendEmailButton.place(x=325, y=20)
+>>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
     def clickBookmark(self):
         self.updateCanvas()
@@ -305,28 +336,36 @@ class App:
 
 
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=130, image=self.bodyImage)
         self.bodyImageLabel.place(x=375, y=125)
         
         ft=font.Font(family="메이플스토리", size=12)
-        self.bodyCategory=Label(self.body,bg='light cyan', text='분류 : ', font=ft)
+        self.bodyCategory=Label(self.body,bg='light cyan', text='분류 : None', font=ft)
         self.bodyCategory.place(x=5, y=45)
 
         ft=font.Font(family="메이플스토리", size=20)
-        self.bodyClassName=Label(self.body, bg='light cyan',text='강의이름 : ', anchor='nw', width=41, font=ft)
+        self.bodyClassName=Label(self.body, bg='light cyan',text='강의이름 : None', anchor='nw', width=41, font=ft)
         self.bodyClassName.place(x=5, y=75)
 
         ft=font.Font(family="메이플스토리", size=12)
-        self.bodyClassProvider=Label(self.body, bg='light cyan',text='제공기관 : ', anchor='nw', font=ft)
+        self.bodyClassProvider=Label(self.body, bg='light cyan',text='제공기관 : None', anchor='nw', font=ft)
         self.bodyClassProvider.place(x=5, y=125)
 
-        ft = font.Font(family="메이플스토리", size=12)
-        self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : ', anchor='nw', font=ft)
+        self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : None', anchor='nw', font=ft)
         self.bodyClassTerm.place(x=5, y=155)
 
-        ft = font.Font(family="메이플스토리", size=12)
-        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : ', anchor='nw', font=ft)
+        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : None', anchor='nw', font=ft)
         self.bodyClassLecturer.place(x=5, y=185)
+
+        self.bodyClassLecture=Label(self.body, bg='light cyan',text='강의 수 : None', anchor='nw', font=ft)
+        self.bodyClassLecture.place(x=5, y=245)
+
+        self.bodyClassView=Label(self.body, bg='light cyan',text='조회 수 : None', anchor='nw', font=ft)
+        self.bodyClassView.place(x=5, y=275)
+
+        self.bodyClassUrl=Label(self.body, bg='light cyan',text='강의링크 : None', anchor='nw', font=ft)
+        self.bodyClassUrl.place(x=5, y=305)
+
 
         ft=font.Font(family="메이플스토리", size=10)
         self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
