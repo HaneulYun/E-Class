@@ -201,13 +201,9 @@ class App:
         #self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
         #self.searchComboBox3.place(x=165, y=30)
 
-<<<<<<< HEAD
         self.searchButton = Button(self.searchingArea, bg='LightSkyBlue1', text="검색",  width=6, command=self.searchClass)
-        self.searchButton.place(x=395, y=30)
-=======
         self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
         self.searchButton.place(x=390, y=4)
->>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
         #검색 버튼
         self.searchComboBox1.set('주제 분류')
@@ -225,13 +221,8 @@ class App:
         self.classListImage_label = Label(self.classListArea,  bg='light cyan', image=self.classListImage)
         self.classListImage_label.place(x=0, y=0)
 
-<<<<<<< HEAD
         self.bookmarkButton = Button(self.classListArea, width=14, bg='LightSkyBlue1', text="북마크 등록/해제", command=self.clickBookmark)
-        self.bookmarkButton.place(x=340, y=20)
-=======
-        self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
         self.bookmarkButton.place(x=335, y=20)
->>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
         self.classListAreaFrame.place(x=5, y=50)
@@ -275,13 +266,8 @@ class App:
         self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=435, height=175)
         self.bookmarkCanvas.pack()
 
-<<<<<<< HEAD
         self.bookmarkSendEmailButton = Button(self.bookmarkListArea, bg='LightSkyBlue1', width=15, text="북마크 메일 전송 ", command=self.insertmail)
-        self.bookmarkSendEmailButton.place(x=330, y=7)
-=======
-        self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
         self.bookmarkSendEmailButton.place(x=325, y=20)
->>>>>>> 4c18f2691dee56a88d9a440d6a6ab949a49eb048
 
     def clickBookmark(self):
         self.updateCanvas()
