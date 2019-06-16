@@ -119,11 +119,14 @@ class App:
                 self.bodyClassLecture['text']='강의 수 : ' + value
             elif key == 'view_count':
                 self.bodyClassView['text']='조회 수 : ' + value
+            elif key == 'created_date':
+                self.bodyClassCreated['text']='등록 날짜 : ' + value
+            elif key == 'updated_date':
+                self.bodyClassUpdated['text']='갱신 날짜 : ' + value
             elif key == 'course_url':
                 self.bodyClassUrl['text']='강의링크 : ' + value
             elif key == 'course_description':
                 self.bodyDescription['text']='강의내용\n' + value
-
             elif key in ['list_num', 'course_id', 'action', 'status', 'content_type']:
                 pass
 
@@ -322,7 +325,7 @@ class App:
 
 
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=130, image=self.bodyImage)
+        self.bodyImageLabel=Label(self.body, bg='light cyan', width=250, height=130, image=self.bodyImage)
         self.bodyImageLabel.place(x=375, y=125)
         
         ft=font.Font(family="메이플스토리", size=12)
@@ -340,17 +343,23 @@ class App:
         self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : None', anchor='nw', font=ft)
         self.bodyClassTerm.place(x=5, y=155)
 
-        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : None', anchor='nw', font=ft)
+        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : None', justify='left', anchor='nw', width=35, font=ft)
         self.bodyClassLecturer.place(x=5, y=185)
 
         self.bodyClassLecture=Label(self.body, bg='light cyan',text='강의 수 : None', anchor='nw', font=ft)
-        self.bodyClassLecture.place(x=5, y=245)
+        self.bodyClassLecture.place(x=5, y=275)
 
         self.bodyClassView=Label(self.body, bg='light cyan',text='조회 수 : None', anchor='nw', font=ft)
-        self.bodyClassView.place(x=5, y=275)
+        self.bodyClassView.place(x=205, y=275)
 
-        self.bodyClassUrl=Label(self.body, bg='light cyan',text='강의링크 : None', anchor='nw', font=ft)
-        self.bodyClassUrl.place(x=5, y=305)
+        self.bodyClassCreated=Label(self.body, bg='light cyan',text='등록 날짜 : None', anchor='nw', font=ft)
+        self.bodyClassCreated.place(x=5, y=305)
+
+        self.bodyClassUpdated=Label(self.body, bg='light cyan',text='갱신 날짜 : None', anchor='nw', font=ft)
+        self.bodyClassUpdated.place(x=205, y=305)
+
+        self.bodyClassUrl=Label(self.body, bg='light cyan',text='강의링크 : None', justify='left', anchor='nw', width=65, font=ft)
+        self.bodyClassUrl.place(x=5, y=335)
 
 
         ft=font.Font(family="메이플스토리", size=10)
@@ -358,10 +367,10 @@ class App:
         self.bodyDescription.place(x=5, y=420)
 
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
-        self.bodyEntryTest.place(x=20, y=410)
+        self.bodyEntryTest.place(x=350, y=410)
 
-        button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
-        button.place(x=940,y=70)
+        self.homepageButton=Button(self.body, width=15, text="홈페이지 바로가기",command=self.click_homepage)
+        self.homepageButton.place(x=5,y=365)
 
         #홈페이지 링크 버튼
 
