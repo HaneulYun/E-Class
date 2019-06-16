@@ -22,6 +22,7 @@ class App:
         self.tk.resizable(False, False)
 
         self.items = []
+        self.bookmarkname=''
         self.homepage_url = ''
         
         # self.category1 = ''
@@ -112,6 +113,7 @@ class App:
                 self.bodyCategory['text']='분류 : ' + value
             elif key == 'course_title':
                 self.bodyClassName['text']='강의이름 : ' + value
+                self.bookmarkname=value
             elif key == 'provider':
                 self.bodyClassProvider['text']='제공기관 : ' + value
             elif key == 'term':
@@ -209,6 +211,16 @@ class App:
         self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=11, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
+        self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClass)
+
+    def click_bookmark(self):
+        for i, d in enumerate(self.items):
+            if 'course_title' in d.keys():
+                if d['course_title']== self.bookmarkname:
+                    self.bookmarkListBox.insert(i, d['course_title'])
+
+    #중복 처리해야함
+    #북마크를 클릭했을 때 정보가 떠야함
 
     def initBody(self):
         self.body = Frame(self.tk, bg='red')
@@ -243,11 +255,12 @@ class App:
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
 
-        
-        
+        button = Button(self.tk, width=5, text="북마크", command=self.click_bookmark)
+        button.place(x=890, y=70)
         
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
+
         #홈페이지 링크 버튼
 
     def click_homepage(self):
