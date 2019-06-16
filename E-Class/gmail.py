@@ -7,7 +7,6 @@ from email.mime.text import MIMEText
 host = "smtp.gmail.com" # Gmail STMP 서버 주소.
 port = "587"
 
-
 def MakeHtmlDoc(self):
     from xml.dom.minidom import getDOMImplementation
     impl = getDOMImplementation()
@@ -19,8 +18,21 @@ def MakeHtmlDoc(self):
     # Body 엘리먼트 생성.
     body = newdoc.createElement('body')
 
-    ibsnText = newdoc.createTextNode("확인")  # < 병원명 >
-    body.appendChild(ibsnText)
+    body.appendChild(newdoc.createTextNode('총 {} 개의 강의 정보를 수신하였습니다.\n'.format(self.books.__len__())))
+    body.appendChild(newdoc.createElement('br'))
+    body.appendChild(newdoc.createElement('br'))
+    body.appendChild(newdoc.createElement('br'))
+
+    for d in self.books:
+        body.appendChild(newdoc.createTextNode('강의이름 : {}'.format(d['course_title'])))
+        body.appendChild(newdoc.createElement('br'))
+        body.appendChild(newdoc.createTextNode('....제공기관 : {}'.format(d['provider'])))
+        body.appendChild(newdoc.createElement('br'))
+        body.appendChild(newdoc.createTextNode('....교수자명 : {}'.format(d['lecturer'])))
+        body.appendChild(newdoc.createElement('br'))
+        body.appendChild(newdoc.createTextNode('....강의링크 : {}'.format(d['course_url'])))
+        body.appendChild(newdoc.createElement('br'))
+        body.appendChild(newdoc.createElement('br'))
 
     top_element.appendChild(body)
 
@@ -36,7 +48,7 @@ def sendmail(addr, html):
 
     msg = MIMEBase('multipart','alternative')
 
-    msg['Subject']="하늘이 바보"
+    msg['Subject']="[E-Class(공개강의 검색 엔진)] 북마크 목록을 전송해드립니다."
     msg['From']=senderAddr
     msg['To']=recipientAddr
 

@@ -125,6 +125,7 @@ class App:
 
     def updateCanvas(self):
         # self.bookmarkCanvas
+        
         pass
 
     def selectClass(self, event):
@@ -226,9 +227,6 @@ class App:
         self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, width=425, height=125)
         self.bookmarkCanvas.pack()
 
-        # self.bookmarkCanvas.create_rectangle(0, 0, 4000, 2000, fill='red')
-        # self.bookmarkCanvas.update()
-
     def clickBookmark(self):
         item = None
 
@@ -249,15 +247,6 @@ class App:
                 if d['course_title'] == item['course_title']:
                     self.books.remove(item)
                     self.bookmarkListBox.delete(i, i)
-        #self.classListBox.insert(i, d['course_title'])
-        #for i, d in enumerate(self.items):
-        #    if 'course_title' in d.keys():
-        #        if d['course_title']== self.bookmarkname:
-        #            self.bookmarkListBox.insert(i, d['course_title'])
-
-
-    #중복 처리해야함
-    #북마크를 클릭했을 때 정보가 떠야함
 
     def insertmail(self):
         self.window = Tk()

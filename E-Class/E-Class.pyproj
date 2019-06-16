@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="E_Class.py" />
+    <Compile Include="gmail.py" />
     <Compile Include="noti.py" />
     <Compile Include="teller.py" />
   </ItemGroup>
