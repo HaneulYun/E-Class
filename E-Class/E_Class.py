@@ -146,7 +146,7 @@ class App:
             y1 = height-15-(height-30)*count[d]/maxCount
             x2 = 10+(i+1)*barW
             y2 = height-15
-            self.bookmarkCanvas.create_rectangle(x1, y1, x2, y2, tags='value')
+            self.bookmarkCanvas.create_rectangle(x1, y1, x2, y2, fill='light cyan', tags='value')
             self.bookmarkCanvas.create_text(10+(i+0.5)*barW, height-7, text=d, tags='value', anchor ='center')
 
     def selectClass(self, event):
@@ -161,7 +161,7 @@ class App:
         pass
 
     def initBanner(self):
-        self.banner = Frame(self.tk,bg='white')
+        self.banner = Frame(self.tk,bg='azure')
         self.banner.place(x=0, y=0, width=1080, height=100)
         self.logo=PhotoImage(file="e-class_logo.png")
         self.logo_label=Label(self.tk, bg='white', image=self.logo)
@@ -199,7 +199,6 @@ class App:
         self.classListArea = Frame(self.tk,  bg='light cyan')
         self.classListArea.place(x=0, y=160, width=450, height=360)
 
-        ft=font.Font(family="맑은 고딕", size=12)
         #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
                                  #background="",borderwidth=5, font=ft)
         self.classListImage= PhotoImage(file="class.png")
@@ -207,15 +206,15 @@ class App:
         self.classListImage_label.place(x=0, y=0)
 
         self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
-        self.bookmarkButton.place(x=340, y=7)
+        self.bookmarkButton.place(x=340, y=20)
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
-        self.classListAreaFrame.place(x=5, y=40)
+        self.classListAreaFrame.place(x=5, y=50)
 
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, bg='ghost white', borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, bg='azure', borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
@@ -239,7 +238,7 @@ class App:
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
         self.bookmarkListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=8, borderwidth=0,relief='ridge',
+        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, bg='azure', width=60, height=8, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
@@ -248,8 +247,11 @@ class App:
         self.bookmarkCanvasFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
 
-        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='white', width=425, height=125)
+        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=425, height=125)
         self.bookmarkCanvas.pack()
+
+        self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
+        self.bookmarkSendEmailButton.place(x=330, y=7)
 
     def clickBookmark(self):
         item = None
@@ -301,8 +303,8 @@ class App:
 
 
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.bodyImage_Label=Label(self.body, width=250, height=250, image=self.bodyImage)
-        self.bodyImage_Label.place(x=375, y=125)
+        self.bodyImageLabel=Label(self.body, width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel.place(x=375, y=125)
         
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
@@ -328,9 +330,6 @@ class App:
 
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
-
-        button = Button(self.tk, width=15, text="북마크 메일 전송 ", command=self.insertmail)
-        button.place(x=670, y=70)
 
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
