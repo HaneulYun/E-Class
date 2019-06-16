@@ -169,25 +169,34 @@ class App:
 
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg= 'light cyan')
-        self.searchingArea.place(x=0, y=100, width=450, height=60)
+        self.searchingArea.place(x=0, y=100, width=450, height=35)
         #구분선이 왜 안생기지 정말 모르겠다
 
+        
+        self.searchComboBox1Guide = Label(self.searchingArea, text='대분류')
+        self.searchComboBox1Guide.place(x=5, y=5)
         self.searchComboBox1 = ttk.Combobox(self.searchingArea, width=8, values=values)
-        self.searchComboBox1.place(x=5,y=5)
-        self.searchComboBox2 = ttk.Combobox(self.searchingArea, width=8)
-        self.searchComboBox2.place(x=85, y=5)
-        self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
-        self.searchComboBox3.place(x=165, y=5)
+        self.searchComboBox1.place(x=55,y=5)
 
         self.searchDateGuide = Label(self.searchingArea, text='기간')
-        self.searchDateGuide.place(x=265, y=5)
+        self.searchDateGuide.place(x=165, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
-        self.searchDateStart.place(x=305, y=6)
+        self.searchDateStart.place(x=205, y=6)
         self.searchDateEnd = Entry(self.searchingArea, width=8)
-        self.searchDateEnd.place(x=385, y=6)
+        self.searchDateEnd.place(x=285, y=6)
+
+        #self.searchComboBox2Guide = Label(self.searchingArea, text='대분류')
+        #self.searchComboBox2Guide.place(x=5, y=5)
+        #self.searchComboBox2 = ttk.Combobox(self.searchingArea, width=8)
+        #self.searchComboBox2.place(x=35, y=30)
+
+        #self.searchComboBox3Guide = Label(self.searchingArea, text='대분류')
+        #self.searchComboBox3Guide.place(x=5, y=5)
+        #self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
+        #self.searchComboBox3.place(x=165, y=30)
 
         self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
-        self.searchButton.place(x=395, y=30)
+        self.searchButton.place(x=390, y=4)
 
         #검색 버튼
         self.searchComboBox1.set('주제 분류')
@@ -197,7 +206,7 @@ class App:
 
     def initClassListArea(self):
         self.classListArea = Frame(self.tk,  bg='light cyan')
-        self.classListArea.place(x=0, y=160, width=450, height=300)
+        self.classListArea.place(x=0, y=130, width=450, height=330)
 
         #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
                                  #background="",borderwidth=5, font=ft)
@@ -206,7 +215,7 @@ class App:
         self.classListImage_label.place(x=0, y=0)
 
         self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
-        self.bookmarkButton.place(x=340, y=20)
+        self.bookmarkButton.place(x=335, y=20)
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
         self.classListAreaFrame.place(x=5, y=50)
@@ -214,7 +223,7 @@ class App:
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=15, bg='azure', borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=17, bg='azure', borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
@@ -251,7 +260,7 @@ class App:
         self.bookmarkCanvas.pack()
 
         self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
-        self.bookmarkSendEmailButton.place(x=330, y=7)
+        self.bookmarkSendEmailButton.place(x=325, y=20)
 
     def clickBookmark(self):
         item = None
