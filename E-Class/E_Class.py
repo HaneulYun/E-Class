@@ -164,7 +164,7 @@ class App:
         self.banner = Frame(self.tk,bg='azure')
         self.banner.place(x=0, y=0, width=1080, height=100)
         self.logo=PhotoImage(file="e-class_logo.png")
-        self.logo_label=Label(self.tk, bg='white', image=self.logo)
+        self.logo_label=Label(self.tk, bg='azure', image=self.logo)
         self.logo_label.place(x=0,y=0)
 
     def initSearchingArea(self):
