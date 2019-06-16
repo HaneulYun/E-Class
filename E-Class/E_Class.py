@@ -15,6 +15,10 @@ import http.client
 
 import xml.etree.ElementTree as ET
 
+import spam
+
+
+
 values=['인문과학', '사회과학', '공학', '자연과학',
         '교육학', '의약학', '예술ㆍ체육']
 
@@ -372,7 +376,10 @@ class App:
         #홈페이지 링크 버튼
 
     def click_homepage(self):
-        webbrowser.open_new(self.homepage_url)
+        if self.homepage_url:
+            webbrowser.open_new(self.homepage_url)
+        else:
+            self.bodyClassName['text']='교수님... ' + spam.save_us('pls')
 
     def run(self):
         self.tk.mainloop()
