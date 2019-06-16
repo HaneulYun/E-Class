@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk, font
 import webbrowser
+import gmail
 #from tkinter import ttk, font
 #import tkinter.messagebox
 
@@ -21,10 +22,12 @@ class App:
         self.tk.geometry('1080x720')
         self.tk.resizable(False, False)
 
+
         self.items = []
         self.books = []
         self.bookmarkname=''
         self.homepage_url = ''
+        self.email_address=''
         
         self.dateStart = ''
         self.dateEnd = ''
@@ -226,6 +229,23 @@ class App:
     #중복 처리해야함
     #북마크를 클릭했을 때 정보가 떠야함
 
+    def insertmail(self):
+        self.window = Tk()
+        self.window.title('E-Class')
+        self.window.geometry('200x200')
+        self.email_Label = Label(self.window, text="받으실 메일 주소를 입력하세요")
+        self.email_Label.place(x=10, y=10)
+        self.email_entrybox = Entry(self.window, width=25)
+        self.email_entrybox.place(x=10, y=35)
+        self.email_OK = Button(self.window, text='확인', command=self.sendmail_bookmark)
+        self.email_OK.place(x=80, y=60)
+
+    def sendmail_bookmark(self):
+        self.email_address = self.email_entrybox.get()
+        self.email_entrybox.delete(0, 'end')
+        
+
+
     def initBody(self):
         self.body = Frame(self.tk, bg='red')
         self.body.place(x=450, y=100, width=630, height=620)
@@ -258,6 +278,9 @@ class App:
 
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
+
+        button = Button(self.tk, width=15, text="북마크 메일 전송 ", command=self.insertmail)
+        button.place(x=670, y=70)
 
         button = Button(self.tk, width=5, text="북마크 ", command=self.clickBookmark)
         button.place(x=800, y=70)
