@@ -28,7 +28,7 @@ def initData():
     conn = http.client.HTTPConnection("kocw.net")
     conn.request("GET",
          #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&category_id=" + str(id+1) + "&from=" + str(self.dateStart) + "&to=" + str(self.dateEnd) + "&end_num=30000"
-         "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&from=20170101&to=20180201&end_num=10000"
+         "/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&category_type=t&from=20170101&to=20191201&end_num=30000"
          #"/home/api/handler.do?key=537adad829de4e65782196737ced103f35930363b8e30956&from=20100101&to=20200201&end_num=30000"
          )
     req = conn.getresponse()
