@@ -15,6 +15,9 @@ import http.client
 
 import xml.etree.ElementTree as ET
 
+values=['인문과학', '사회과학', '공학', '자연과학',
+        '교육학', '의약학', '예술체육']
+
 class App:
     def __init__(self):
         self.tk = Tk()
@@ -89,6 +92,8 @@ class App:
                 self.classListBox.insert(i, d['course_title'])
 
     def updateBody(self, item):
+        self.updateCanvas()
+
         self.bodyImage = PhotoImage(file="e-class_logo.png")
         self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
@@ -124,9 +129,25 @@ class App:
                 self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
 
     def updateCanvas(self):
-        # self.bookmarkCanvas
-        
-        pass
+        self.bookmarkCanvas.delete('value')
+        count = dict()
+        for d in values:
+            count[d] = 0
+        for d in self.books:
+            taxon = d['taxon'].split('>')[0]
+            count[taxon] += 1
+        maxCount = int(max(count.values()))
+        barW = (425 - 20) / 7
+        height = 125
+        if maxCount == 0:
+            return
+        for i, d in enumerate(values):
+            x1 = 10+i*barW
+            y1 = height-15-(height-30)*count[d]/maxCount
+            x2 = 10+(i+1)*barW
+            y2 = height-15
+            self.bookmarkCanvas.create_rectangle(x1, y1, x2, y2, tags='value')
+            self.bookmarkCanvas.create_text(10+(i+0.5)*barW, height-7, text=d, tags='value', anchor ='center')
 
     def selectClass(self, event):
         if event.widget.curselection():
@@ -149,9 +170,6 @@ class App:
     def initSearchingArea(self):
         self.searchingArea = Frame(self.tk, bg='white')
         self.searchingArea.place(x=0, y=100, width=450, height=60)
-
-        values=['인문과학', '사회과학', '공학', '자연과학',
-                '교육학', '의약학', '예술체육']
 
         self.searchComboBox1 = ttk.Combobox(self.searchingArea, width=8, values=values)
         self.searchComboBox1.place(x=5,y=5)
@@ -187,8 +205,8 @@ class App:
         self.classListImage_label = Label(self.classListArea, bg='white', image=self.classListImage)
         self.classListImage_label.place(x=0, y=0)
 
-        self.bookmarkButton = Button(self.classListArea, width=10, text="북마크 등록", command=self.clickBookmark)
-        self.bookmarkButton.place(x=365, y=7)
+        self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
+        self.bookmarkButton.place(x=340, y=7)
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
         self.classListAreaFrame.place(x=5, y=40)
@@ -212,7 +230,7 @@ class App:
         self.bookmarkListImage_label.place(x=5, y=0)
 
         self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
-        self.bookmarkNotebook.place(x=5, y=40)
+        self.bookmarkNotebook.place(x=5, y=40),
         
         self.bookmarkListAreaFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkListAreaFrame, text='북마크 목록')
@@ -229,7 +247,7 @@ class App:
         self.bookmarkCanvasFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
 
-        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, width=425, height=125)
+        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='white', width=425, height=125)
         self.bookmarkCanvas.pack()
 
     def clickBookmark(self):
