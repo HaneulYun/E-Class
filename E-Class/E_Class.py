@@ -367,9 +367,6 @@ class App:
         self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
         self.bodyDescription.place(x=5, y=420)
 
-        # self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
-        # self.bodyEntryTest.place(x=350, y=410)
-
         self.homepageButton=Button(self.body, width=15, bg='LightSkyBlue1', text="홈페이지 바로가기",command=self.click_homepage)
         self.homepageButton.place(x=5,y=365)
 
