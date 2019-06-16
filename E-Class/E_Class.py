@@ -185,7 +185,7 @@ class App:
         self.searchDateEnd = Entry(self.searchingArea, width=8)
         self.searchDateEnd.place(x=385, y=6)
 
-        self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
+        self.searchButton = Button(self.searchingArea, bg='LightSkyBlue1', text="검색",  width=6, command=self.searchClass)
         self.searchButton.place(x=395, y=30)
 
         #검색 버튼
@@ -204,7 +204,7 @@ class App:
         self.classListImage_label = Label(self.classListArea,  bg='light cyan', image=self.classListImage)
         self.classListImage_label.place(x=0, y=0)
 
-        self.bookmarkButton = Button(self.classListArea, width=14, text="북마크 등록/해제", command=self.clickBookmark)
+        self.bookmarkButton = Button(self.classListArea, width=14, bg='LightSkyBlue1', text="북마크 등록/해제", command=self.clickBookmark)
         self.bookmarkButton.place(x=340, y=20)
 
         self.classListAreaFrame = Frame(self.classListArea,bg='white')
@@ -249,7 +249,7 @@ class App:
         self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=425, height=125)
         self.bookmarkCanvas.pack()
 
-        self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
+        self.bookmarkSendEmailButton = Button(self.bookmarkListArea, bg='LightSkyBlue1', width=15, text="북마크 메일 전송 ", command=self.insertmail)
         self.bookmarkSendEmailButton.place(x=330, y=7)
 
     def clickBookmark(self):
