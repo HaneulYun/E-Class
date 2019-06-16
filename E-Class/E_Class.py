@@ -16,7 +16,7 @@ import http.client
 import xml.etree.ElementTree as ET
 
 values=['인문과학', '사회과학', '공학', '자연과학',
-        '교육학', '의약학', '예술체육']
+        '교육학', '의약학', '예술ㆍ체육']
 
 class App:
     def __init__(self):
@@ -138,7 +138,7 @@ class App:
             count[taxon] += 1
         maxCount = int(max(count.values()))
         barW = (425 - 20) / 7
-        height = 125
+        height = 175
         if maxCount == 0:
             return
         for i, d in enumerate(values):
@@ -197,7 +197,7 @@ class App:
 
     def initClassListArea(self):
         self.classListArea = Frame(self.tk,  bg='light cyan')
-        self.classListArea.place(x=0, y=160, width=450, height=360)
+        self.classListArea.place(x=0, y=160, width=450, height=300)
 
         #self.classListText=Label(self.classListArea, text='강의 목록',relief="ridge",
                                  #background="",borderwidth=5, font=ft)
@@ -214,14 +214,14 @@ class App:
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, bg='azure', borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=15, bg='azure', borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
 
     def initBookmarkListArea(self):
         self.bookmarkListArea = Frame(self.tk,bg='light cyan')
-        self.bookmarkListArea.place(x=0, y=520, width=450, height=200)
+        self.bookmarkListArea.place(x=0, y=460, width=450, height=260)
 
         ft=font.Font(family="맑은 고딕", size=12)
         #self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
@@ -229,8 +229,8 @@ class App:
         self.bookmarkListImage_label = Label(self.bookmarkListArea, bg='light cyan', image=self.bookmarkListImage)
         self.bookmarkListImage_label.place(x=5, y=0)
 
-        self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=130)
-        self.bookmarkNotebook.place(x=5, y=40),
+        self.bookmarkNotebook=ttk.Notebook(self.bookmarkListArea, width=435, height=180)
+        self.bookmarkNotebook.place(x=5, y=50),
         
         self.bookmarkListAreaFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkListAreaFrame, text='북마크 목록')
@@ -238,7 +238,7 @@ class App:
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
         self.bookmarkListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, bg='azure', width=60, height=8, borderwidth=0,relief='ridge',
+        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, bg='azure', width=60, height=12, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
@@ -247,7 +247,7 @@ class App:
         self.bookmarkCanvasFrame = Frame(bg='white')
         self.bookmarkNotebook.add(self.bookmarkCanvasFrame, text='조회수 그래프')
 
-        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=425, height=125)
+        self.bookmarkCanvas = Canvas(self.bookmarkCanvasFrame, bg='azure', width=435, height=175)
         self.bookmarkCanvas.pack()
 
         self.bookmarkSendEmailButton = Button(self.bookmarkListArea, width=15, text="북마크 메일 전송 ", command=self.insertmail)
