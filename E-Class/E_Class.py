@@ -73,7 +73,8 @@ class App:
             data = dict()
             for d in item:
                 data[d.tag] = d.text
-            self.items.append(data)
+            if 'course_title' in data.keys():
+                self.items.append(data)
 
         category = dict()
 
@@ -91,6 +92,7 @@ class App:
                     category[taxon[0]][taxon[1]][taxon[2]] = 0
 
         self.classListBox.delete(0, END)
+
         for i, d in enumerate(self.items):
             if 'course_title' in d.keys():
                 self.classListBox.insert(i, d['course_title'])
@@ -102,30 +104,33 @@ class App:
         self.body3box3.delete('1.0', END)
         self.body3box4.delete('1.0', END)
         self.body3box5.delete('1.0', END)
+        self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in self.items[event.widget.curselection()[0]].items():
             if key == 'taxon':
                 self.bodyCategory['text']='분류 : ' + value
-                #self.body3box1.insert(INSERT, value)
             elif key == 'course_title':
-                self.body3box2.insert(INSERT, value)
-            elif key == 'lecturer':
-                self.body3box3.insert(INSERT, value)
-            elif key=='provider':
-                self.body3box4.insert(INSERT, value)
-            elif key=='term':
-                self.body3box5.insert(INSERT, value)
-            elif key=='thumbnail_url':
-                with urllib.request.urlopen(value) as u:
-                    raw_data=u.read()
+                self.bodyClassName['text']='강의이름 : ' + value
+            elif key == 'course_description':
+                self.bodyDescription['text']='강의내용\n' + value
 
-                im=Image.open(BytesIO(raw_data))
-                self.body_image=ImageTk.PhotoImage(im)
-            elif key=='course_url':
-                self.homepage_url=value
+            #elif key == 'lecturer':
+            #    self.body3box3.insert(INSERT, value)
+            #elif key=='provider':
+            #    self.body3box4.insert(INSERT, value)
+            #elif key=='term':
+            #    self.body3box5.insert(INSERT, value)
+            #elif key=='thumbnail_url':
+            #    with urllib.request.urlopen(value) as u:
+            #        raw_data=u.read()
+            #
+            #    im=Image.open(BytesIO(raw_data))
+            #    self.body_image=ImageTk.PhotoImage(im)
+            #elif key=='course_url':
+            #    self.homepage_url=value
             else:
-                string = '{:<20} : {}\n'.format(key, value)
-                self.body4box.insert(INSERT, string)
+                string = '{:<10} : {}\n'.format(key, value)
+                self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
         self.body_label.configure(image=self.body_image)
 
     def initData(self):
@@ -217,6 +222,20 @@ class App:
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
         self.bodyCategory.place(x=5, y=5)
+
+        ft=font.Font(family="맑은 고딕", size=20)
+        self.bodyClassName=Label(self.body, text='강의이름 : ', font=ft)
+        self.bodyClassName.place(x=5, y=35)
+
+        ft=font.Font(family="맑은 고딕", size=10)
+        self.bodyDescription=Label(self.body, text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
+        self.bodyDescription.place(x=5, y=200)
+
+        ft=font.Font(family="맑은 고딕", size=10)
+        self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
+        self.bodyEntryTest.place(x=5, y=400)
+
+
         #self.body2box1.place(x=750,y=100)
         self.body2box2 = Label(self.tk, width=15, height=4, text="강의이름")
         #self.body2box2.place(x=750, y=160)
