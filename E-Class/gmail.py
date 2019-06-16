@@ -8,7 +8,7 @@ host = "smtp.gmail.com" # Gmail STMP 서버 주소.
 port = "587"
 
 
-def MakeHtmlDoc(bookMark_List):
+def MakeHtmlDoc(self):
     from xml.dom.minidom import getDOMImplementation
     impl = getDOMImplementation()
     newdoc = impl.createDocument(None, "html", None)  # DOM 객체 생성
@@ -19,13 +19,8 @@ def MakeHtmlDoc(bookMark_List):
     # Body 엘리먼트 생성.
     body = newdoc.createElement('body')
 
-    for item in bookMark_List:
-        b = newdoc.createElement('b')
-        # create text node
-        ibsnText = newdoc.createTextNode("확인")  # < 병원명 >
-        b.appendChild(ibsnText)
-
-        body.appendChild(b)
+    ibsnText = newdoc.createTextNode("확인")  # < 병원명 >
+    body.appendChild(ibsnText)
 
     top_element.appendChild(body)
 
@@ -49,12 +44,19 @@ def sendmail(addr, html):
 
     msg.attach(HtmlPart)
 
+    print("connect smtp server ... ")
     s = smtplib.SMTP(host, port)
     s.ehlo()
     s.starttls()
     s.ehlo()
     s.login("hello3o456@gmail.com","dkssud110112")
-
-    s.sendmail(senderAddr, [recipientAddr], msg.as_string())
-    s.close()
-
+    try:
+        s.sendmail(senderAddr, [recipientAddr], msg.as_string())
+    except:
+        print("사망각")
+        s.close()
+        return False
+    else:
+        print("Mail sending complete!!!")
+        s.close()
+        return True
