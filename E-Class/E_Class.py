@@ -22,13 +22,10 @@ class App:
         self.tk.resizable(False, False)
 
         self.items = []
-        self.bookmarks = []
+        self.books = []
         self.bookmarkname=''
         self.homepage_url = ''
         
-        # self.category1 = ''
-        # self.category2 = ''
-        # self.category3 = ''
         self.dateStart = ''
         self.dateEnd = ''
 
@@ -39,17 +36,6 @@ class App:
         self.initClassListArea()
         self.initBookmarkListArea()
         self.initBody()
-
-        # ####내가 한 곳###
-        # self.v=IntVar()
-        # radio1=Radiobutton(self.tk,text="리스트",variable=self.v,value=1, command=self.initClassListArea)
-        # radio1.pack()
-        # radio1.place(x=10,y=170)
-        # 
-        # radio2 = Radiobutton(self.tk, text="썸네일", variable=self.v, value=2) #command 썸네일일 때 되게 해야함
-        # radio2.pack()
-        # radio2.place(x=80, y=170)
-        # ###내가 한 곳###
 
     def searchClass(self):
         id = self.searchComboBox1.current()
@@ -99,17 +85,10 @@ class App:
             if 'course_title' in d.keys():
                 self.classListBox.insert(i, d['course_title'])
 
-    def selectClass(self, event):
-        #self.body4box.delete('1.0', END)
-        #
-        #self.body3box1.delete('1.0', END)
-        #self.body3box2.delete('1.0', END)
-        #self.body3box3.delete('1.0', END)
-        #self.body3box4.delete('1.0', END)
-        #self.body3box5.delete('1.0', END)
+    def updateBody(self, item):
         self.bodyEntryTest['text'] = ''
         self.body_image=None
-        for key, value in self.items[event.widget.curselection()[0]].items():
+        for key, value in item.items():
             if key == 'taxon':
                 self.bodyCategory['text']='분류 : ' + value
             elif key == 'course_title':
@@ -138,6 +117,14 @@ class App:
             else:
                 string = '{:<10} : {}\n'.format(key, value)
                 self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
+
+    def selectClass(self, event):
+        if event.widget.curselection():
+            self.updateBody(self.items[event.widget.curselection()[0]])
+
+    def selectClassInBookmarkList(self, event):
+        if event.widget.curselection():
+            self.updateBody(self.books[event.widget.curselection()[0]])
 
     def initData(self):
         pass
@@ -169,11 +156,6 @@ class App:
         self.searchDateStart.place(x=305, y=6)
         self.searchDateEnd = Entry(self.searchingArea, width=8)
         self.searchDateEnd.place(x=385, y=6)
-
-        #combobox 3개
-        # InputLabel = Entry(self.searchingArea, width=20, borderwidth=2, relief='ridge')
-        # InputLabel.place(x=250, y=15)
-        # #검색하는 박스
 
         self.searchButton = Button(self.searchingArea, text="검색", width=6, command=self.searchClass)
         self.searchButton.place(x=395, y=30)
@@ -212,20 +194,33 @@ class App:
         self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=11, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
-        self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClass)
+        self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
 
-    def click_bookmark(self):
-        for i, d in enumerate(self.items):
-            if 'course_title' in d.keys():
-                if d['course_title']== self.bookmarkname:
-                    self.bookmarkListBox.insert(i, d['course_title'])
+    def clickBookmark(self):
+        item = None
 
-    def clickout_bookmark(self):
-        for i, d in enumerate(self.items):
-            if 'course_title' in d.keys():
-                if d['course_title'] == self.bookmarkname:
-                    self.bookmarkListBox.delete(i, d['course_title'])
-                    break
+        if self.classListBox.curselection():
+            item = self.items[self.classListBox.curselection()[0]]
+        elif self.bookmarkListBox.curselection():
+            item = self.books[self.bookmarkListBox.curselection()[0]]
+
+        if not item:
+            return
+
+        if not item['course_title'] in [e['course_title'] for e in self.books]:
+            self.bookmarkListBox.insert(self.books.__len__(), item['course_title'])
+            self.books.append(item)
+        else:
+            index = 0
+            for i, d in enumerate(self.books):
+                if d['course_title'] == item['course_title']:
+                    self.books.remove(item)
+                    self.bookmarkListBox.delete(i, i)
+        #self.classListBox.insert(i, d['course_title'])
+        #for i, d in enumerate(self.items):
+        #    if 'course_title' in d.keys():
+        #        if d['course_title']== self.bookmarkname:
+        #            self.bookmarkListBox.insert(i, d['course_title'])
 
 
     #중복 처리해야함
@@ -264,11 +259,8 @@ class App:
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
 
-        button = Button(self.tk, width=5, text="북마크 ", command=self.click_bookmark)
+        button = Button(self.tk, width=5, text="북마크 ", command=self.clickBookmark)
         button.place(x=800, y=70)
-
-        button = Button(self.tk, width=10, text="북마크 해제", command=self.clickout_bookmark)
-        button.place(x=850, y=70)
 
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
