@@ -93,7 +93,6 @@ class App:
 
     def updateBody(self, item):
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.updateCanvas()
 
         self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
@@ -179,7 +178,7 @@ class App:
         self.searchComboBox3 = ttk.Combobox(self.searchingArea, width=8)
         self.searchComboBox3.place(x=165, y=5)
 
-        self.searchDateGuide = Label(self.searchingArea, text='기간')
+        self.searchDateGuide = Label(self.searchingArea, bg='azure', text='기간')
         self.searchDateGuide.place(x=265, y=5)
         self.searchDateStart = Entry(self.searchingArea, width=8)
         self.searchDateStart.place(x=305, y=6)
@@ -254,6 +253,8 @@ class App:
         self.bookmarkSendEmailButton.place(x=330, y=7)
 
     def clickBookmark(self):
+        self.updateCanvas()
+
         item = None
 
         if self.classListBox.curselection():
@@ -273,6 +274,7 @@ class App:
                 if d['course_title'] == item['course_title']:
                     self.books.remove(item)
                     self.bookmarkListBox.delete(i, i)
+
 
     def insertmail(self):
         self.window = Tk()
@@ -303,29 +305,31 @@ class App:
 
 
         self.bodyImage = PhotoImage(file="no_image_icon.png")
-        self.bodyImageLabel=Label(self.body, width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel=Label(self.body, bg='light cyan' ,width=250, height=250, image=self.bodyImage)
         self.bodyImageLabel.place(x=375, y=125)
         
-        ft=font.Font(family="맑은 고딕", size=12)
-        self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
-        self.bodyCategory.place(x=5, y=40)
+        ft=font.Font(family="메이플스토리", size=12)
+        self.bodyCategory=Label(self.body,bg='light cyan', text='분류 : ', font=ft)
+        self.bodyCategory.place(x=5, y=45)
 
-        ft=font.Font(family="맑은 고딕", size=20)
-        self.bodyClassName=Label(self.body, text='강의이름 : ', anchor='nw', width=41, font=ft)
-        self.bodyClassName.place(x=5, y=70)
+        ft=font.Font(family="메이플스토리", size=20)
+        self.bodyClassName=Label(self.body, bg='light cyan',text='강의이름 : ', anchor='nw', width=41, font=ft)
+        self.bodyClassName.place(x=5, y=75)
 
-        ft=font.Font(family="맑은 고딕", size=12)
-        self.bodyClassProvider=Label(self.body, text='제공기관 : ', anchor='nw', font=ft)
+        ft=font.Font(family="메이플스토리", size=12)
+        self.bodyClassProvider=Label(self.body, bg='light cyan',text='제공기관 : ', anchor='nw', font=ft)
         self.bodyClassProvider.place(x=5, y=125)
 
-        self.bodyClassTerm=Label(self.body, text='강의학기 : ', anchor='nw', font=ft)
+        ft = font.Font(family="메이플스토리", size=12)
+        self.bodyClassTerm=Label(self.body, bg='light cyan',text='강의학기 : ', anchor='nw', font=ft)
         self.bodyClassTerm.place(x=5, y=155)
 
-        self.bodyClassLecturer=Label(self.body, text='교수자명 : ', anchor='nw', font=ft)
+        ft = font.Font(family="메이플스토리", size=12)
+        self.bodyClassLecturer=Label(self.body, bg='light cyan',text='교수자명 : ', anchor='nw', font=ft)
         self.bodyClassLecturer.place(x=5, y=185)
 
-        ft=font.Font(family="맑은 고딕", size=10)
-        self.bodyDescription=Label(self.body, text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
+        ft=font.Font(family="메이플스토리", size=10)
+        self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
         self.bodyDescription.place(x=5, y=420)
 
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
