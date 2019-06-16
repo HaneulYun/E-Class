@@ -98,12 +98,13 @@ class App:
                 self.classListBox.insert(i, d['course_title'])
 
     def selectClass(self, event):
-        self.body4box.delete('1.0', END)
-        self.body3box1.delete('1.0', END)
-        self.body3box2.delete('1.0', END)
-        self.body3box3.delete('1.0', END)
-        self.body3box4.delete('1.0', END)
-        self.body3box5.delete('1.0', END)
+        #self.body4box.delete('1.0', END)
+        #
+        #self.body3box1.delete('1.0', END)
+        #self.body3box2.delete('1.0', END)
+        #self.body3box3.delete('1.0', END)
+        #self.body3box4.delete('1.0', END)
+        #self.body3box5.delete('1.0', END)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in self.items[event.widget.curselection()[0]].items():
@@ -111,27 +112,29 @@ class App:
                 self.bodyCategory['text']='분류 : ' + value
             elif key == 'course_title':
                 self.bodyClassName['text']='강의이름 : ' + value
+            elif key == 'provider':
+                self.bodyClassProvider['text']='제공기관 : ' + value
+            elif key == 'term':
+                self.bodyClassTerm['text']='강의학기 : ' + value
+            elif key == 'lecturer':
+                self.bodyClassLecturer['text']='교수자명 : ' + value
+            elif key == 'thumbnail_url':
+                with urllib.request.urlopen(value) as u:
+                    raw_data=u.read()
+                im=Image.open(BytesIO(raw_data))
+                self.bodyImage=ImageTk.PhotoImage(im)
+                self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
             elif key == 'course_description':
                 self.bodyDescription['text']='강의내용\n' + value
 
-            #elif key == 'lecturer':
-            #    self.body3box3.insert(INSERT, value)
-            #elif key=='provider':
-            #    self.body3box4.insert(INSERT, value)
-            #elif key=='term':
-            #    self.body3box5.insert(INSERT, value)
-            #elif key=='thumbnail_url':
-            #    with urllib.request.urlopen(value) as u:
-            #        raw_data=u.read()
-            #
-            #    im=Image.open(BytesIO(raw_data))
-            #    self.body_image=ImageTk.PhotoImage(im)
+            elif key in ['list_num', 'course_id']:
+                pass
+
             #elif key=='course_url':
             #    self.homepage_url=value
             else:
                 string = '{:<10} : {}\n'.format(key, value)
                 self.bodyEntryTest['text'] = self.bodyEntryTest['text'] + string
-        self.body_label.configure(image=self.body_image)
 
     def initData(self):
         pass
@@ -211,67 +214,36 @@ class App:
         self.body = Frame(self.tk, bg='red')
         self.body.place(x=450, y=100, width=630, height=620)
 
-        self.body_image = None
-        self.body_label=Label(self.body, image=self.body_image)
-        #self.body_label.place(x=5, y=5)
-        
-        #이미지
-        self.body2=Frame(self.tk,bg="orange")
-        #self.body2.place(x=760, y=100, width=290,height=300)
+        self.bodyImage = PhotoImage(file="e-class_logo.png")
+        self.bodyImageLabel=Label(self.body, width=250, height=250, image=self.bodyImage)
+        self.bodyImageLabel.place(x=375, y=90)
         
         ft=font.Font(family="맑은 고딕", size=12)
         self.bodyCategory=Label(self.body, text='분류 : ', font=ft)
         self.bodyCategory.place(x=5, y=5)
 
         ft=font.Font(family="맑은 고딕", size=20)
-        self.bodyClassName=Label(self.body, text='강의이름 : ', font=ft)
+        self.bodyClassName=Label(self.body, text='강의이름 : ', anchor='nw', width=41, font=ft)
         self.bodyClassName.place(x=5, y=35)
+
+        ft=font.Font(family="맑은 고딕", size=12)
+        self.bodyClassProvider=Label(self.body, text='제공기관 : ', anchor='nw', font=ft)
+        self.bodyClassProvider.place(x=5, y=90)
+
+        self.bodyClassTerm=Label(self.body, text='강의학기 : ', anchor='nw', font=ft)
+        self.bodyClassTerm.place(x=5, y=120)
+
+        self.bodyClassLecturer=Label(self.body, text='교수자명 : ', anchor='nw', font=ft)
+        self.bodyClassLecturer.place(x=5, y=150)
 
         ft=font.Font(family="맑은 고딕", size=10)
         self.bodyDescription=Label(self.body, text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
-        self.bodyDescription.place(x=5, y=200)
+        self.bodyDescription.place(x=5, y=420)
 
-        ft=font.Font(family="맑은 고딕", size=10)
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
-        self.bodyEntryTest.place(x=5, y=400)
+        self.bodyEntryTest.place(x=20, y=410)
 
-
-        #self.body2box1.place(x=750,y=100)
-        self.body2box2 = Label(self.tk, width=15, height=4, text="강의이름")
-        #self.body2box2.place(x=750, y=160)
-        self.body2box3 = Label(self.tk, width=15, height=4, text="교수자명")
-        #self.body2box3.place(x=750, y=220)
-        self.body2box4 = Label(self.tk, width=15, height=4, text="제공기관")
-        #self.body2box4.place(x=750, y=280)
-        self.body2box5 = Label(self.tk, width=15, height=4, text="강의학기")
-        #self.body2box5.place(x=750, y=340)
-        #주제분류, 강의이름, 강의자, 제공기관, 강의기간
         
-        self.body3=Frame(self.tk)
-        #self.body3.place(x=860, y=100, width=190, height=300)
-        #그에 따른 실제 내용
-        
-        self.body3box1 = Text(self.tk, width=27, height=4,borderwidth=2)
-        #self.body3box1.place(x=860, y=100)
-        self.body3box2 = Text(self.tk, width=27, height=4, borderwidth=2)
-        #self.body3box2.place(x=860, y=160)
-        self.body3box3 = Text(self.tk, width=27, height=4, borderwidth=2)
-        #self.body3box3.place(x=860, y=220)
-        self.body3box4 = Text(self.tk, width=27, height=4, borderwidth=2)
-        #self.body3box4.place(x=860, y=280)
-        self.body3box5 = Text(self.tk, width=27, height=4, borderwidth=2)
-        #self.body3box5.place(x=860, y=340)
-        
-        self.body4=Frame(self.tk, bg='pink')
-        #self.body4.place(x=460, y=410, width=600, height=300)
-        #강의소개, 홈페이지 링크
-        
-        BodyBoxScrollbar = Scrollbar(self.body4)
-        #BodyBoxScrollbar.pack(side=RIGHT, fill=Y)
-        self.body4box = Text(self.body4, width=80, height=50, borderwidth=2, relief='ridge',
-                           yscrollcommand=BodyBoxScrollbar.set)
-        #self.body4box.pack()
-        #self.body4box.place(x=20,y=0)
         
         
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
