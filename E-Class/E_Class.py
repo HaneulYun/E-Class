@@ -22,6 +22,7 @@ class App:
         self.tk.resizable(False, False)
 
         self.items = []
+        self.bookmarks = []
         self.bookmarkname=''
         self.homepage_url = ''
         
