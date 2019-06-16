@@ -219,6 +219,14 @@ class App:
                 if d['course_title']== self.bookmarkname:
                     self.bookmarkListBox.insert(i, d['course_title'])
 
+    def clickout_bookmark(self):
+        for i, d in enumerate(self.items):
+            if 'course_title' in d.keys():
+                if d['course_title'] == self.bookmarkname:
+                    self.bookmarkListBox.delete(i, d['course_title'])
+                    break
+
+
     #중복 처리해야함
     #북마크를 클릭했을 때 정보가 떠야함
 
@@ -255,9 +263,12 @@ class App:
         self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
         self.bodyEntryTest.place(x=20, y=410)
 
-        button = Button(self.tk, width=5, text="북마크", command=self.click_bookmark)
-        button.place(x=890, y=70)
-        
+        button = Button(self.tk, width=5, text="북마크 ", command=self.click_bookmark)
+        button.place(x=800, y=70)
+
+        button = Button(self.tk, width=10, text="북마크 해제", command=self.clickout_bookmark)
+        button.place(x=850, y=70)
+
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
 
