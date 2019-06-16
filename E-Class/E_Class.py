@@ -89,6 +89,8 @@ class App:
                 self.classListBox.insert(i, d['course_title'])
 
     def updateBody(self, item):
+        self.bodyImage = PhotoImage(file="e-class_logo.png")
+        self.bodyImageLabel.configure(width=250, height=250, image=self.bodyImage)
         self.bodyEntryTest['text'] = ''
         self.body_image=None
         for key, value in item.items():
@@ -173,13 +175,20 @@ class App:
         self.classListArea = Frame(self.tk, bg='blue')
         self.classListArea.place(x=0, y=160, width=450, height=360)
 
+        ft=font.Font(family="맑은 고딕", size=12)
+        self.classListText=Label(self.classListArea, text='강의 목록', font=ft)
+        self.classListText.place(x=5, y=5)
+
+        self.bookmarkButton = Button(self.classListArea, width=10, text="북마크 등록", command=self.clickBookmark)
+        self.bookmarkButton.place(x=365, y=7)
+
         self.classListAreaFrame = Frame(self.classListArea)
-        self.classListAreaFrame.place(x=5, y=5)
+        self.classListAreaFrame.place(x=5, y=40)
 
         self.classListBoxScrollbar=Scrollbar(self.classListAreaFrame)
         self.classListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=21, borderwidth=0,relief='ridge',
+        self.classListBox=Listbox(self.classListAreaFrame, width=60, height=19, borderwidth=0,relief='ridge',
                            yscrollcommand=self.classListBoxScrollbar.set, selectmode=SINGLE)
         self.classListBox.pack()
         self.classListBox.bind('<<ListboxSelect>>', self.selectClass)
@@ -187,14 +196,18 @@ class App:
     def initBookmarkListArea(self):
         self.bookmarkListArea = Frame(self.tk, bg='yellow')
         self.bookmarkListArea.place(x=0, y=520, width=450, height=200)
+
+        ft=font.Font(family="맑은 고딕", size=12)
+        self.bookmarkListText=Label(self.bookmarkListArea, text='북마크 목록 (통계)', font=ft)
+        self.bookmarkListText.place(x=5, y=5)
         
         self.bookmarkListAreaFrame = Frame(self.bookmarkListArea)
-        self.bookmarkListAreaFrame.place(x=5, y=5)
+        self.bookmarkListAreaFrame.place(x=5, y=40)
         
         self.bookmarkListBoxScrollbar=Scrollbar(self.bookmarkListAreaFrame)
         self.bookmarkListBoxScrollbar.pack(side=RIGHT,fill=Y)
 
-        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=11, borderwidth=0,relief='ridge',
+        self.bookmarkListBox=Listbox(self.bookmarkListAreaFrame, width=60, height=9, borderwidth=0,relief='ridge',
                                      yscrollcommand=self.bookmarkListBoxScrollbar.set, selectmode=SINGLE)
         self.bookmarkListBox.pack()
         self.bookmarkListBox.bind('<<ListboxSelect>>', self.selectClassInBookmarkList)
@@ -281,9 +294,6 @@ class App:
 
         button = Button(self.tk, width=15, text="북마크 메일 전송 ", command=self.insertmail)
         button.place(x=670, y=70)
-
-        button = Button(self.tk, width=5, text="북마크 ", command=self.clickBookmark)
-        button.place(x=800, y=70)
 
         button=Button(self.tk, width=15, text="홈페이지 링크 버튼",command=self.click_homepage)
         button.place(x=940,y=70)
