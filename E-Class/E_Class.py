@@ -15,6 +15,10 @@ import http.client
 
 import xml.etree.ElementTree as ET
 
+import spam
+
+
+
 values=['인문과학', '사회과학', '공학', '자연과학',
         '교육학', '의약학', '예술ㆍ체육']
 
@@ -363,16 +367,16 @@ class App:
         self.bodyDescription=Label(self.body, bg='light cyan',text='강의내용', justify='left', anchor='nw', width=88, wraplength=620, font=ft)
         self.bodyDescription.place(x=5, y=420)
 
-        # self.bodyEntryTest=Label(self.body, text='테스트', justify='left', font=ft)
-        # self.bodyEntryTest.place(x=350, y=410)
-
         self.homepageButton=Button(self.body, width=15, bg='LightSkyBlue1', text="홈페이지 바로가기",command=self.click_homepage)
         self.homepageButton.place(x=5,y=365)
 
         #홈페이지 링크 버튼
 
     def click_homepage(self):
-        webbrowser.open_new(self.homepage_url)
+        if self.homepage_url:
+            webbrowser.open_new(self.homepage_url)
+        else:
+            self.bodyClassName['text']='교수님... ' + spam.save_us('pls')
 
     def run(self):
         self.tk.mainloop()
